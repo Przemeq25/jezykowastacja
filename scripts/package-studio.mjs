@@ -1,0 +1,10 @@
+import fs from 'node:fs';
+fs.cpSync('studio/dist','out/studio',{recursive:true});
+const base='/jezykowastacja/studio/';
+const index='out/studio/index.html';
+const restore=`<script>(()=>{const q=new URLSearchParams(location.search);const route=q.get('studioRoute');if(route&&route.startsWith('${base}'))history.replaceState(null,'',route);})()</script>`;
+fs.writeFileSync(index,fs.readFileSync(index,'utf8').replace('<head>',`<head>${restore}<meta name="robots" content="noindex,nofollow">`));
+const redirect=`<script>if(location.pathname.startsWith('${base}'))location.replace('${base}?studioRoute='+encodeURIComponent(location.pathname+location.search+location.hash));</script>`;
+const notFound='out/404.html';
+fs.writeFileSync(notFound,fs.readFileSync(notFound,'utf8').replace('<head>',`<head>${redirect}`));
+console.log('Sanity Studio packaged at /jezykowastacja/studio/ with SPA routing.');

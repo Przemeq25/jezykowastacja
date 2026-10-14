@@ -1,6 +1,10 @@
 name: Deploy approved demo to GitHub Pages
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '17 * * * *'
 permissions:
   contents: read
   pages: write
@@ -24,8 +28,14 @@ jobs:
           NEXT_PUBLIC_BASE_PATH: /jezykowastacja
           NEXT_PUBLIC_SITE_URL: https://przemeq25.github.io/jezykowastacja
           NEXT_PUBLIC_ENABLE_LIVE_DATA: 'false'
+          NEXT_PUBLIC_SANITY_PROJECT_ID: f1yzh257
+          NEXT_PUBLIC_SANITY_DATASET: stacja
           NEXT_TELEMETRY_DISABLED: '1'
       - run: npm run check:export
+      - run: npm ci --prefix studio
+      - run: npm run typecheck --prefix studio
+      - run: npm run build --prefix studio
+      - run: node scripts/package-studio.mjs
       - uses: actions/upload-pages-artifact@v3
         with:
           path: out

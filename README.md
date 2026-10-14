@@ -44,3 +44,19 @@ Zastąp `src/components/signup-form.tsx` zatwierdzonym embedem ActiveNow. `conta
 ## SEO i GEO
 
 Każda oferta ma własny HTML, H1, opis i canonical. Są sitemap.xml, robots.txt, semantyczne treści, FAQ i linkowanie wewnętrzne. JSON-LD opisuje organizację, ścieżkę podstrony i artykuły, bez wymyślonych ocen i opinii. Widoczność w Google i odpowiedziach AI nie jest gwarantowana.
+
+
+## CMS Sanity — skonfigurowany projekt
+
+Project ID: `f1yzh257`, dataset: `stacja` (publiczny). Strona pobiera wyłącznie opublikowane dokumenty podczas builda. Formularze nadal są mockami — włączenie CMS nie aktywuje formularzy ani danych produkcyjnych. Dopóki dataset jest pusty, strona używa treści demo.
+
+Panel: https://przemeq25.github.io/jezykowastacja/studio/
+
+1. W Sanity Manage → projekt → API → CORS origins dodaj `https://przemeq25.github.io` z **Allow credentials**. To dostęp przeglądarkowego panelu; zapis nadal wymaga konta z uprawnieniami do projektu.
+2. Zaloguj się w panelu jako członek projektu.
+3. Zakładka **Uruchomienie CMS → Wczytaj treści demo** importuje 13 dokumentów i zdjęcia do pustego datasetu. Import zatrzyma się, jeśli znajdzie istniejące treści.
+4. Edytuj w **Treści strony**, kliknij **Publish**. GitHub przebudowuje stronę co godzinę (harmonogram może być opóźniony przez GitHub), po zmianach kodu i ręcznie przez Actions → Run workflow.
+
+Panel obejmuje nagłówek i opis strony głównej, główne zdjęcie, logo, opis podejścia, kafelki odbiorców, formy zajęć i ceny, FAQ strony głównej, kontakt, podstrony z SEO i FAQ oraz blog. Stałe etykiety nawigacji i elementy dekoracyjne pozostają w kodzie. Nie przechowuj w publicznym datasecie danych uczniów, haseł ani tokenów.
+
+Lokalnie: `npm ci --prefix studio`, `npm run dev --prefix studio`. Dla lokalnego panelu dodaj też origin `http://localhost:3333` w CORS. Identyfikatory projektu i datasetu są publiczne; żaden token zapisu nie trafia do kodu ani workflow.
