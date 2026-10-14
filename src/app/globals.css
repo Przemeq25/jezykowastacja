@@ -30,3 +30,31 @@ h1,h2,h3,h4,h5,h6,p,li,label,legend,summary,small,strong,span,a,button,input,tex
 .closing-banner :is(h1,h2,h3,h4,p,.eyebrow){color:#fbf1df;-webkit-text-fill-color:#fbf1df}
 .closing-banner .action,.closing-banner .action:visited{color:#303a45;-webkit-text-fill-color:#303a45;background-color:#fac078;border-color:#fac078}
 .closing-banner .action:hover,.closing-banner .action:focus-visible{color:#303a45;-webkit-text-fill-color:#303a45;background-color:#fbf1df;border-color:#fbf1df}
+
+/* Restrained motion: transform only; text is never faded out or hidden. */
+@media(prefers-reduced-motion:no-preference){
+ .action{transition:background-color 180ms ease,color 180ms ease,border-color 180ms ease,box-shadow 180ms ease}
+ .action span{display:inline-block;transition:transform 180ms ease}
+ .action:active{transform:translateY(1px)}
+ .desktop-nav>a:not(.action){position:relative}
+ .desktop-nav>a:not(.action):after{content:'';position:absolute;left:0;right:0;bottom:6px;height:2px;background:#303a45;transform:scaleX(0);transform-origin:left;transition:transform 180ms ease}
+ .desktop-nav>a:not(.action):hover{ text-decoration:none }
+ .desktop-nav>a:not(.action):is(:hover,:focus-visible):after{transform:scaleX(1)}
+ .language-card,.format-card{transition:transform 220ms ease,border-color 220ms ease,box-shadow 220ms ease}
+ .format-card:focus-within{border-color:#303a45}
+ .hero-photo img{transition:transform 500ms cubic-bezier(.2,.65,.3,1)}
+ .mobile-nav[open] nav{animation:js-menu-in 180ms ease-out}
+ main details:not(.mobile-nav)[open]>p{animation:js-detail-in 200ms ease-out}
+ [data-motion-enabled='true'] [data-reveal]{transition:transform 500ms cubic-bezier(.2,.65,.3,1)}
+ [data-motion-enabled='true'] [data-reveal]:not([data-revealed='true']){transform:translateY(14px)}
+ @media(hover:hover) and (pointer:fine){
+  .action:hover span{transform:translate(2px,-2px)}
+  .language-card:hover,.format-card:hover{transform:translateY(-4px);border-color:#303a45;box-shadow:0 12px 24px -14px #303a4545}
+  .hero-photo:hover img{transform:scale(1.012)}
+ }
+}
+@keyframes js-menu-in{from{transform:translateY(-6px)}to{transform:translateY(0)}}
+@keyframes js-detail-in{from{transform:translateY(5px)}to{transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){
+ [data-reveal],.action,.action span,.language-card,.format-card,.hero-photo img{transform:none!important;animation:none!important;transition:none!important}
+}
