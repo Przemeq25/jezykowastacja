@@ -15,3 +15,18 @@ html{scroll-behavior:smooth;scroll-padding-top:100px}body{margin:0;color:var(--j
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
 
 .philosophy-statement{display:flex;flex-direction:column;justify-content:space-between;gap:32px;min-height:340px;border-radius:20px;background:var(--js-orange);padding:36px}.philosophy-statement span{font-size:12px;font-weight:700;letter-spacing:.06em}.philosophy-statement p{font-size:42px;font-weight:700;line-height:1.22;letter-spacing:-.04em;margin:0}
+
+/* Lock the site to its own readable palette, including Safari text rendering. */
+html,body{color-scheme:only light;background-color:#fff;color:#303a45}
+body{-webkit-text-fill-color:currentColor}
+main,header.site-header,footer.site-footer{color:#303a45}
+h1,h2,h3,h4,h5,h6,p,li,label,legend,summary,small,strong,span,a,button,input,textarea,select,option{-webkit-text-fill-color:currentColor}
+.field{color:#303a45;background-color:#fff;opacity:1}
+.field::placeholder{color:#54595f;opacity:1;-webkit-text-fill-color:#54595f}
+.action,.action:visited{color:#303a45;-webkit-text-fill-color:#303a45}
+.action:hover,.action:focus-visible{color:#fbf1df;-webkit-text-fill-color:#fbf1df;background-color:#303a45;border-color:#303a45}
+.action span{color:inherit;-webkit-text-fill-color:inherit}
+.demo-strip,.closing-banner{color:#fbf1df;-webkit-text-fill-color:#fbf1df;background-color:#303a45}
+.closing-banner :is(h1,h2,h3,h4,p,.eyebrow){color:#fbf1df;-webkit-text-fill-color:#fbf1df}
+.closing-banner .action,.closing-banner .action:visited{color:#303a45;-webkit-text-fill-color:#303a45;background-color:#fac078;border-color:#fac078}
+.closing-banner .action:hover,.closing-banner .action:focus-visible{color:#303a45;-webkit-text-fill-color:#303a45;background-color:#fbf1df;border-color:#fbf1df}
