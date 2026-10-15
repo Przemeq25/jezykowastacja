@@ -45,7 +45,6 @@ Zastąp `src/components/signup-form.tsx` zatwierdzonym embedem ActiveNow. `conta
 
 Każda oferta ma własny HTML, H1, opis i canonical. Są sitemap.xml, robots.txt, semantyczne treści, FAQ i linkowanie wewnętrzne. JSON-LD opisuje organizację, ścieżkę podstrony i artykuły, bez wymyślonych ocen i opinii. Widoczność w Google i odpowiedziach AI nie jest gwarantowana.
 
-
 ## CMS Sanity — skonfigurowany projekt
 
 Project ID: `f1yzh257`, dataset: `stacja` (publiczny). Strona pobiera wyłącznie opublikowane dokumenty podczas builda. Formularze nadal są mockami — włączenie CMS nie aktywuje formularzy ani danych produkcyjnych. Dopóki dataset jest pusty, strona używa treści demo.
@@ -66,3 +65,14 @@ Lokalnie: `npm ci --prefix studio`, `npm run dev --prefix studio`. Dla lokalnego
 Sekcje są wyświetlane na stronie głównej i „O nas”. W Studio wybierz **Kadra i opinie**. Nowy dokument ma od razu wypełnione dane początkowe: cztery osoby z oryginalnej strony, propozycje krótkich opisów oraz krótki, autentyczny fragment opinii Kamili. Przy pierwszej edycji kliknij **Publish**, aby zapisać dokument w Sanity. Do tego momentu strona korzysta z identycznych danych początkowych zapisanych w kodzie. Istniejące treści CMS nie są nadpisywane.
 
 Możesz edytować nagłówki, opisy, nazwiska, role, zdjęcia i tekst alternatywny, zmieniać kolejność osób i opinii, dodawać kolejne lub ukryć każdą sekcję. Zdjęcia początkowe to kopie oryginalnych zdjęć hostowane wraz ze stroną; zdjęcie przesłane w polu „Zdjęcie” ma pierwszeństwo i jest przechowywane w Sanity. Opisy kadry są propozycjami redakcyjnymi, bez dopisywania kwalifikacji ani stażu. Opinia jest oznaczona jako fragment i ma link do oryginału. Nie dodano fikcyjnych opinii, ocen liczbowych ani danych produkcyjnych formularzy.
+
+## Kontrola jakości i formatowanie
+
+Projekt korzysta z konfiguracji ESLint Next.js **Core Web Vitals + TypeScript** oraz Prettiera. Reguły Next.js nie są wyłączane na potrzeby formatowania; `eslint-config-prettier` usuwa konflikty reguł stylistycznych.
+
+- `npm run lint` — sprawdza kod aplikacji, Studio i skryptów; ostrzeżenia również blokują kontrolę.
+- `npm run lint:fix` — stosuje dostępne automatyczne poprawki ESLint.
+- `npm run format` — formatuje kod, konfigurację i dokumentację.
+- `npm run format:check` — sprawdza formatowanie bez zapisywania zmian.
+
+Wygenerowane pliki, zależności, obrazy, lockfile i dane importu są pomijane przez formatter. GitHub Actions uruchamia lint i kontrolę formatowania przed sprawdzaniem typów i buildem. W Next.js 16 używamy bezpośrednio CLI ESLint.

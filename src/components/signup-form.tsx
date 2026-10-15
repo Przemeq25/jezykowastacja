@@ -1,8 +1,93 @@
-
 'use client';
-import {useState,type FormEvent} from 'react';
-export default function SignupForm({kind='individual'}:{kind?:'individual'|'group'}){
- const [sent,setSent]=useState(false);
- function submit(e:FormEvent<HTMLFormElement>){e.preventDefault();setSent(true);}
- return <section id="zapisy" className="my-14 scroll-mt-24 rounded-[2rem] border border-ink/10 bg-white p-6 md:p-10"><p className="text-xs font-bold uppercase tracking-widest text-rust">Zapisy · wersja testowa</p><h2 className="mt-4 mb-5 text-3xl">{kind==='group'?'Znajdź swoją grupę.':'Umów swoje zajęcia.'}</h2><p className="mb-7 max-w-2xl text-muted">Ten formularz pokazuje przykładowy proces zapisu. Dane nie są wysyłane ani zapisywane. Docelowo w tym miejscu pojawi się zewnętrzny formularz szkoły.</p>{sent?<div role="status" className="rounded-2xl bg-mist p-7"><h3 className="mb-3 text-xl">Zgłoszenie testowe gotowe!</h3><p>To demo — zgłoszenie nie trafiło do szkoły.</p><button className="mt-5 font-bold underline underline-offset-4" onClick={()=>setSent(false)}>Przetestuj ponownie</button></div>:<form onSubmit={submit} className="grid gap-5 md:grid-cols-2"><label className="grid gap-2 text-sm font-semibold">Imię<input name="name" required maxLength={100} className="field" placeholder="Przykładowe imię"/></label><label className="grid gap-2 text-sm font-semibold">E-mail<input name="email" type="email" required maxLength={254} className="field" placeholder="test@example.com"/></label><label className="grid gap-2 text-sm font-semibold">Język<select name="language" className="field"><option>Hiszpański</option><option>Angielski</option></select></label><label className="grid gap-2 text-sm font-semibold">{kind==='group'?'Przykładowa grupa':'Rodzaj spotkania'}<select name="course" className="field">{kind==='group'?<><option>Początkujący · wtorek 18:00</option><option>Konwersacje · czwartek 19:00</option></>:<><option>Lekcja próbna</option><option>Lekcje indywidualne</option></>}</select></label><button className="action md:col-span-2">Wyślij zgłoszenie testowe ↗</button></form>}</section>;
+import { useState, type FormEvent } from 'react';
+export default function SignupForm({
+  kind = 'individual',
+}: {
+  kind?: 'individual' | 'group';
+}) {
+  const [sent, setSent] = useState(false);
+  function submit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setSent(true);
+  }
+  return (
+    <section
+      id="zapisy"
+      className="my-14 scroll-mt-24 rounded-[2rem] border border-ink/10 bg-white p-6 md:p-10"
+    >
+      <p className="text-xs font-bold uppercase tracking-widest text-rust">
+        Zapisy · wersja testowa
+      </p>
+      <h2 className="mt-4 mb-5 text-3xl">
+        {kind === 'group' ? 'Znajdź swoją grupę.' : 'Umów swoje zajęcia.'}
+      </h2>
+      <p className="mb-7 max-w-2xl text-muted">
+        Ten formularz pokazuje przykładowy proces zapisu. Dane nie są wysyłane
+        ani zapisywane. Docelowo w tym miejscu pojawi się zewnętrzny formularz
+        szkoły.
+      </p>
+      {sent ? (
+        <div role="status" className="rounded-2xl bg-mist p-7">
+          <h3 className="mb-3 text-xl">Zgłoszenie testowe gotowe!</h3>
+          <p>To demo — zgłoszenie nie trafiło do szkoły.</p>
+          <button
+            className="mt-5 font-bold underline underline-offset-4"
+            onClick={() => setSent(false)}
+          >
+            Przetestuj ponownie
+          </button>
+        </div>
+      ) : (
+        <form onSubmit={submit} className="grid gap-5 md:grid-cols-2">
+          <label className="grid gap-2 text-sm font-semibold">
+            Imię
+            <input
+              name="name"
+              required
+              maxLength={100}
+              className="field"
+              placeholder="Przykładowe imię"
+            />
+          </label>
+          <label className="grid gap-2 text-sm font-semibold">
+            E-mail
+            <input
+              name="email"
+              type="email"
+              required
+              maxLength={254}
+              className="field"
+              placeholder="test@example.com"
+            />
+          </label>
+          <label className="grid gap-2 text-sm font-semibold">
+            Język
+            <select name="language" className="field">
+              <option>Hiszpański</option>
+              <option>Angielski</option>
+            </select>
+          </label>
+          <label className="grid gap-2 text-sm font-semibold">
+            {kind === 'group' ? 'Przykładowa grupa' : 'Rodzaj spotkania'}
+            <select name="course" className="field">
+              {kind === 'group' ? (
+                <>
+                  <option>Początkujący · wtorek 18:00</option>
+                  <option>Konwersacje · czwartek 19:00</option>
+                </>
+              ) : (
+                <>
+                  <option>Lekcja próbna</option>
+                  <option>Lekcje indywidualne</option>
+                </>
+              )}
+            </select>
+          </label>
+          <button className="action md:col-span-2">
+            Wyślij zgłoszenie testowe ↗
+          </button>
+        </form>
+      )}
+    </section>
+  );
 }

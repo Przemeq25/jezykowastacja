@@ -1,0 +1,16 @@
+.next/
+out/
+build/
+node_modules/
+studio/node_modules/
+studio/dist/
+studio/.sanity/
+public/
+next-env.d.ts
+*.tsbuildinfo
+.env*
+package-lock.json
+studio/package-lock.json
+studio/seed.json
+studio/seed.ndjson
+studio/seed-images.json
