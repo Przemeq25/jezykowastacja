@@ -1,0 +1,58 @@
+{
+  "teamVisible": true,
+  "teamEyebrow": "Poznaj nas bliżej",
+  "teamTitle": "Za każdą rozmową stoi człowiek.",
+  "teamIntro": "Poznaj osoby, z którymi zrobisz swój kolejny językowy krok.",
+  "team": [
+    {
+      "_key": "maksymilian-brzozowski",
+      "_type": "teamMember",
+      "name": "Maksymilian Brzozowski",
+      "role": "Język hiszpański",
+      "bio": "Hiszpański, który przydaje się poza podręcznikiem: w podróży, codziennych rozmowach i poznawaniu nowych kultur. Nauka krok po kroku, z miejscem na pytania i praktykę.",
+      "photoUrl": "https://przemeq25.github.io/jezykowastacja/images/team-maksymilian-brzozowski.webp",
+      "photoAlt": "Maksymilian Brzozowski — Językowa Stacja"
+    },
+    {
+      "_key": "pamela-ryduchowska",
+      "_type": "teamMember",
+      "name": "Pamela Ryduchowska",
+      "role": "Język hiszpański · założycielka",
+      "bio": "Założycielka Językowej Stacji. Tworzy przestrzeń do nauki hiszpańskiego z życzliwością, uważnością na potrzeby ucznia i odwagą do pierwszych rozmów.",
+      "photoUrl": "https://przemeq25.github.io/jezykowastacja/images/team-pamela-ryduchowska.webp",
+      "photoAlt": "Pamela Ryduchowska — Językowa Stacja"
+    },
+    {
+      "_key": "magdalena-olejniczak",
+      "_type": "teamMember",
+      "name": "Magdalena Olejniczak",
+      "role": "Język angielski",
+      "bio": "Angielski do szkoły, pracy i codziennych rozmów. Małe kroki, przydatne zwroty i regularna praktyka pomagają stopniowo budować pewność siebie.",
+      "photoUrl": "https://przemeq25.github.io/jezykowastacja/images/team-magdalena-olejniczak.webp",
+      "photoAlt": "Magdalena Olejniczak — Językowa Stacja"
+    },
+    {
+      "_key": "karina-augustyn",
+      "_type": "teamMember",
+      "name": "Karina Augustyn",
+      "role": "Język hiszpański",
+      "bio": "Hiszpański jako zaproszenie do rozmowy i odkrywania świata. Przestrzeń do próbowania, zadawania pytań i cieszenia się każdym kolejnym krokiem w nauce.",
+      "photoUrl": "https://przemeq25.github.io/jezykowastacja/images/team-karina-augustyn.webp",
+      "photoAlt": "Karina Augustyn — Językowa Stacja"
+    }
+  ],
+  "testimonialsVisible": true,
+  "testimonialsEyebrow": "Głosy z naszej stacji",
+  "testimonialsTitle": "Najlepiej opowiadają o nas uczniowie.",
+  "testimonialsIntro": "Ich słowa mówią więcej niż nasza obietnica.",
+  "testimonials": [
+    {
+      "_key": "kamila-grupowe",
+      "_type": "testimonial",
+      "author": "Kamila",
+      "course": "Zajęcia grupowe z hiszpańskiego",
+      "quote": "Nie spodziewałam się, że nauka hiszpańskiego może być tak fajna. […] Grupa jest mała, więc każdy ma szansę się wypowiedzieć.",
+      "sourceUrl": "https://jezykowastacja.pl/"
+    }
+  ]
+}

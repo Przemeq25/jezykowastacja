@@ -60,3 +60,9 @@ Panel: https://przemeq25.github.io/jezykowastacja/studio/
 Panel obejmuje nagłówek i opis strony głównej, główne zdjęcie, logo, opis podejścia, kafelki odbiorców, formy zajęć i ceny, FAQ strony głównej, kontakt, podstrony z SEO i FAQ oraz blog. Stałe etykiety nawigacji i elementy dekoracyjne pozostają w kodzie. Nie przechowuj w publicznym datasecie danych uczniów, haseł ani tokenów.
 
 Lokalnie: `npm ci --prefix studio`, `npm run dev --prefix studio`. Dla lokalnego panelu dodaj też origin `http://localhost:3333` w CORS. Identyfikatory projektu i datasetu są publiczne; żaden token zapisu nie trafia do kodu ani workflow.
+
+## Kadra i opinie
+
+Sekcje są wyświetlane na stronie głównej i „O nas”. W Studio wybierz **Kadra i opinie**. Nowy dokument ma od razu wypełnione dane początkowe: cztery osoby z oryginalnej strony, propozycje krótkich opisów oraz krótki, autentyczny fragment opinii Kamili. Przy pierwszej edycji kliknij **Publish**, aby zapisać dokument w Sanity. Do tego momentu strona korzysta z identycznych danych początkowych zapisanych w kodzie. Istniejące treści CMS nie są nadpisywane.
+
+Możesz edytować nagłówki, opisy, nazwiska, role, zdjęcia i tekst alternatywny, zmieniać kolejność osób i opinii, dodawać kolejne lub ukryć każdą sekcję. Zdjęcia początkowe to kopie oryginalnych zdjęć hostowane wraz ze stroną; zdjęcie przesłane w polu „Zdjęcie” ma pierwszeństwo i jest przechowywane w Sanity. Opisy kadry są propozycjami redakcyjnymi, bez dopisywania kwalifikacji ani stażu. Opinia jest oznaczona jako fragment i ma link do oryginału. Nie dodano fikcyjnych opinii, ocen liczbowych ani danych produkcyjnych formularzy.

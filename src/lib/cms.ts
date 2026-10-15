@@ -1,4 +1,5 @@
 import { cache } from 'react';
+import communityDefaults from './community.json';
 import { pages, posts, formats, audiences, philosophy, homeFaq, type Page, type Post } from './content';
 import { defaultSettings } from './site';
 const defaults = {...defaultSettings, philosophy, formats, audiences, homeFaq};
@@ -30,4 +31,11 @@ export const getPosts=cache(async ():Promise<Post[]> => {
  if(!remote)return posts;
  if(!remote.length){const initialized=await query<number>('count(*[_id=="siteSettings"])');return initialized?[]:posts;}
  return remote.filter(p=>p.slug && /^[a-z0-9-]+$/.test(p.slug)).map(p=>({...p,image:p.image||'philosophy.webp',sections:p.sections||[]}));
+});
+
+export type Community = typeof communityDefaults;
+export const getCommunity=cache(async ():Promise<Community> => {
+ const remote=await query<Partial<Community>>('*[_id=="communitySettings"][0]{teamVisible,teamEyebrow,teamTitle,teamIntro,team[]{_key,_type,name,role,bio,"photoUrl":coalesce(photo.asset->url,photoUrl),photoAlt},testimonialsVisible,testimonialsEyebrow,testimonialsTitle,testimonialsIntro,testimonials[]{_key,_type,author,course,quote,sourceUrl}}');
+ if(!remote)return communityDefaults;
+ return {...communityDefaults,...Object.fromEntries(Object.entries(remote).filter(([,value])=>value!==null&&value!==undefined)),team:(remote.team??communityDefaults.team).map(member=>({...member,photoUrl:member.photoUrl||communityDefaults.team.find(seed=>seed._key===member._key)?.photoUrl||'',photoAlt:member.photoAlt||member.name})),testimonials:remote.testimonials??communityDefaults.testimonials};
 });

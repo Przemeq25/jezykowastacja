@@ -41,6 +41,8 @@ export function SetupTool(){
   <p>Poniższy przycisk wczyta obecne treści i zdjęcia demo do pustego datasetu. Nie zastępuje istniejących dokumentów. Formularze na stronie pozostają testowe.</p>
   <button onClick={initialize} disabled={busy} style={{padding:'12px 20px',cursor:busy?'wait':'pointer'}}>Wczytaj treści demo</button>
   <p role="status" aria-live="polite">{status}</p>
+  <h2>Kadra i opinie</h2>
+  <p>Otwórz „Kadra i opinie” w zakładce Treści strony. Nowy dokument zawiera już cztery osoby, opisy do dopasowania i fragment opinii z poprzedniej strony. Możesz zmienić zdjęcia, kolejność oraz dodawać kolejne autentyczne opinie. Przy pierwszej edycji zapisz dokument przyciskiem Publish.</p>
   <h2>Publikowanie zmian</h2>
   <p>Po kliknięciu Publish strona odświeży się przy kolejnym buildzie GitHub Pages. Automatyczny build uruchamia się co godzinę. Możesz też uruchomić go ręcznie:</p>
   <a href="https://github.com/Przemeq25/jezykowastacja/actions/workflows/pages.yml" target="_blank" rel="noreferrer">GitHub Actions → Run workflow</a>
