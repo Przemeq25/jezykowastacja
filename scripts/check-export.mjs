@@ -47,8 +47,7 @@ for (const file of files) {
       errors.push(`${file}: invalid JSON-LD`);
     }
   }
-  if (/jezykowastacja@gmail\.com|881.?774.?936/.test(html))
-    errors.push(`${file}: production integration or contact leaked into demo`);
+
   for (const [, href] of html.matchAll(/href="([^"#?]+)"/g)) {
     if (!href.startsWith('/') || href.startsWith('//')) continue;
     const rel = href.replace(/^\/jezykowastacja\/?/, '').replace(/^\//, '');

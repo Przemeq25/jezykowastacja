@@ -1,11 +1,10 @@
 import type { Metadata } from 'next';
 import { ArrowRight } from 'lucide-react';
-import { pageMetadata, webPageGraph, organizationId } from '@/lib/seo';
+import { pageMetadata, pageGraph } from '@/lib/seo';
 import { TeamSection, TestimonialsSection } from '@/components/community';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getPages, getSettings, getPosts, getCommunity } from '@/lib/cms';
-import { absolute } from '@/lib/site';
 import {
   Button,
   Photo,
@@ -72,7 +71,13 @@ export default async function Page({
               </p>
               {!['contact', 'blog'].includes(page.kind || '') && (
                 <div className="mt-8">
-                  <Button href={page.kind ? '#zapisy' : '/lekcja-probna/'}>
+                  <Button
+                    href={
+                      page.kind === 'individual' || page.kind === 'group'
+                        ? '#zapisy'
+                        : '/lekcja-probna/'
+                    }
+                  >
                     Umów pierwsze spotkanie
                   </Button>
                 </div>
@@ -112,9 +117,9 @@ export default async function Page({
                 </a>
                 <a
                   className="mb-9 block text-xl font-semibold underline underline-offset-8"
-                  href={`tel:${s.phone.replace(/\s/g, '')}`}
+                  href={`tel:${(s.organization?.telephone || s.phone).replace(/\s/g, '')}`}
                 >
-                  {s.phone}
+                  {s.organization?.telephone || s.phone}
                 </a>
                 <Button href="/lekcje-indywidualne/" secondary>
                   Przejdź do zapisów
@@ -164,55 +169,7 @@ export default async function Page({
         {page.kind !== 'contact' && <CTA />}
       </div>
       <JsonLd
-        data={webPageGraph(
-          page.title,
-          page.description,
-          slug,
-          page.seo?.image || s.seoImage,
-        )}
-      />
-      {[
-        'hiszpanski-online',
-        'angielski-online',
-        'lekcje-indywidualne',
-        'zajecia-w-parze',
-        'kursy-grupowe',
-      ].includes(slug) && (
-        <JsonLd
-          data={{
-            '@context': 'https://schema.org',
-            '@type': 'Service',
-            name: page.title,
-            description: page.description,
-            url: absolute(slug),
-            provider: { '@id': organizationId },
-            availableChannel: {
-              '@type': 'ServiceChannel',
-              serviceUrl: absolute(slug),
-            },
-            serviceType: 'Nauka języków obcych online',
-          }}
-        />
-      )}
-      <JsonLd
-        data={{
-          '@context': 'https://schema.org',
-          '@type': 'BreadcrumbList',
-          itemListElement: [
-            {
-              '@type': 'ListItem',
-              position: 1,
-              name: 'Strona główna',
-              item: absolute(),
-            },
-            {
-              '@type': 'ListItem',
-              position: 2,
-              name: page.title,
-              item: absolute(slug),
-            },
-          ],
-        }}
+        data={pageGraph(page, s, page.kind === 'blog' ? await getPosts() : [])}
       />
     </>
   );

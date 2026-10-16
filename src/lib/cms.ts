@@ -37,7 +37,7 @@ async function query<T>(groq: string): Promise<T | undefined> {
 }
 export const getSettings = cache(async (): Promise<Settings> => {
   const remote = await query<Partial<Settings>>(
-    '*[_type=="siteSettings" && !(_id in path("drafts.**"))][0]{title,intro,email,phone,seoTitle,seoDescription,"seoImage":seoImage.asset->url,socialLinks[]{platform,label,url},socialTitle,socialIntro,philosophy,formats[]{slug,title,text,price},audiences[]{title,text,image},homeFaq[]{question,answer},"heroImage":heroImage.asset->url,"logo":logo.asset->url}',
+    '*[_type=="siteSettings" && !(_id in path("drafts.**"))][0]{title,intro,email,phone,organization{name,description,url,googleProfileUrl,email,telephone},seoTitle,seoDescription,"seoImage":seoImage.asset->url,socialLinks[]{platform,label,url},socialTitle,socialIntro,philosophy,formats[]{slug,title,text,price},audiences[]{title,text,image},homeFaq[]{question,answer},"heroImage":heroImage.asset->url,"logo":logo.asset->url}',
   );
   return Object.fromEntries(
     Object.entries({ ...defaults, ...remote }).map(([key, value]) => [

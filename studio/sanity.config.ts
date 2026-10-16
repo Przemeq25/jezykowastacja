@@ -2,7 +2,8 @@ import { defineConfig, defineType, defineField } from 'sanity';
 import { structureTool } from 'sanity/structure';
 import { SetupTool } from './setup-tool';
 import { communitySchema } from './community-schema';
-import { seoSchema, siteSeoFields } from './seo-schema';
+import { SeoSetupTool } from './seo-setup-tool';
+import { seoSchema, siteSeoFields, organizationSchema } from './seo-schema';
 const projectId = process.env.SANITY_STUDIO_PROJECT_ID || 'f1yzh257';
 if (!projectId) throw new Error('Set SANITY_STUDIO_PROJECT_ID in studio/.env');
 const section = defineType({
@@ -112,7 +113,10 @@ export default defineConfig({
           ]),
     }),
   ],
-  tools: [{ name: 'setup', title: 'Uruchomienie CMS', component: SetupTool }],
+  tools: [
+    { name: 'setup', title: 'Uruchomienie CMS', component: SetupTool },
+    { name: 'seo-setup', title: 'Uzupełnianie SEO', component: SeoSetupTool },
+  ],
   document: {
     newDocumentOptions: (options) =>
       options.filter(
@@ -133,6 +137,7 @@ export default defineConfig({
     types: [
       ...communitySchema,
       seoSchema,
+      organizationSchema,
       section,
       faq,
       defineType({
@@ -190,6 +195,11 @@ export default defineConfig({
         type: 'document',
         fields: [
           ...siteSeoFields,
+          defineField({
+            name: 'organization',
+            title: 'Organizacja i wizytówka Google',
+            type: 'organizationDetails',
+          }),
           defineField({
             name: 'title',
             title: 'Główny nagłówek',

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { ArrowLeft } from 'lucide-react';
-import { pageMetadata, imageUrl, organizationId } from '@/lib/seo';
+import { pageMetadata, webPageGraph, organizationId } from '@/lib/seo';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getPosts, getSettings } from '@/lib/cms';
@@ -37,6 +37,7 @@ export default async function Post({
   const { slug } = await params;
   const p = (await getPosts()).find((p) => p.slug === slug);
   if (!p) notFound();
+  const settings = await getSettings();
   return (
     <div className="content-width">
       <article className="mx-auto max-w-3xl py-14 md:py-20">
@@ -53,6 +54,17 @@ export default async function Post({
         <Sections sections={p.sections} />
       </article>
       <CTA />
+      <JsonLd
+        data={{
+          ...webPageGraph(
+            p.seo?.title || p.title,
+            p.seo?.description || p.excerpt,
+            'blog/' + slug,
+            p.seo?.image || settings.seoImage,
+          ),
+          mainEntity: { '@id': absolute('blog/' + slug) + '#article' },
+        }}
+      />
       <JsonLd
         data={{
           '@context': 'https://schema.org',
@@ -82,12 +94,19 @@ export default async function Post({
       <JsonLd
         data={{
           '@context': 'https://schema.org',
-          '@type': 'Article',
+          '@type': 'BlogPosting',
+          '@id': absolute('blog/' + slug) + '#article',
           headline: p.title,
-          image: imageUrl(p.seo?.image || p.image),
+          image: webPageGraph(
+            p.title,
+            p.excerpt,
+            'blog/' + slug,
+            p.seo?.image || settings.seoImage,
+          ).primaryImageOfPage,
           ...(p.publishedAt ? { datePublished: p.publishedAt } : {}),
           ...(p.updatedAt ? { dateModified: p.updatedAt } : {}),
-          mainEntityOfPage: absolute('blog/' + slug),
+          mainEntityOfPage: { '@id': absolute('blog/' + slug) + '#webpage' },
+          isPartOf: { '@id': absolute('blog') + '#webpage' },
           description: p.excerpt,
           url: absolute('blog/' + slug),
           author: {

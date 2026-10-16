@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { Mail, Phone, ArrowUpRight, Heart } from 'lucide-react';
 import { getSettings } from '@/lib/cms';
 import { absolute, asset } from '@/lib/site';
-import { pageMetadata, siteGraph } from '@/lib/seo';
+import { pageMetadata, siteGraph, imageUrl } from '@/lib/seo';
 import { JsonLd } from '@/components/ui';
 import SiteMenu from '@/components/site-menu';
 import { SocialLinks } from '@/components/socials';
@@ -14,6 +14,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSettings();
   return {
     metadataBase: new URL(absolute()),
+    icons: { icon: settings.logo || imageUrl('logo.webp') },
     ...pageMetadata({
       title: settings.seoTitle,
       description: settings.seoDescription,
@@ -131,13 +132,19 @@ export default async function Layout({
               </nav>
               <div className="footer-contact">
                 <h3>Porozmawiajmy</h3>
-                <a href={`mailto:${settings.email}`}>
+                <a
+                  href={`mailto:${settings.organization?.email || settings.email}`}
+                >
                   <Mail size={18} aria-hidden="true" />
-                  <span>{settings.email}</span>
+                  <span>{settings.organization?.email || settings.email}</span>
                 </a>
-                <a href={`tel:${settings.phone.replace(/\s/g, '')}`}>
+                <a
+                  href={`tel:${(settings.organization?.telephone || settings.phone).replace(/\s/g, '')}`}
+                >
                   <Phone size={18} aria-hidden="true" />
-                  <span>{settings.phone}</span>
+                  <span>
+                    {settings.organization?.telephone || settings.phone}
+                  </span>
                 </a>
                 <p>
                   Zajęcia prowadzimy online.

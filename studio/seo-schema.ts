@@ -22,7 +22,8 @@ export const seoSchema = defineType({
       name: 'image',
       title: 'Obraz do udostępniania (OG)',
       type: 'image',
-      description: 'Rekomendowane proporcje 1200 × 630 px.',
+      description:
+        'Obecnie używamy logo szkoły. Możesz zastąpić je własną grafiką OG.',
     }),
     defineField({
       name: 'noIndex',
@@ -49,7 +50,7 @@ export const siteSeoFields = [
     title: 'SEO — domyślny obraz OG',
     type: 'image',
     description:
-      '1200 × 630 px. Używany też na podstronach bez własnego obrazu OG.',
+      'Domyślnie logo szkoły; używany też na podstronach bez własnego obrazu OG.',
   }),
   defineField({
     name: 'socialLinks',
@@ -102,3 +103,40 @@ export const siteSeoFields = [
     rows: 3,
   }),
 ];
+
+export const organizationSchema = defineType({
+  name: 'organizationDetails',
+  title: 'Organizacja — dane do JSON-LD',
+  type: 'object',
+  fields: [
+    defineField({ name: 'name', title: 'Nazwa szkoły', type: 'string' }),
+    defineField({
+      name: 'description',
+      title: 'Opis organizacji',
+      type: 'text',
+    }),
+    defineField({
+      name: 'url',
+      title: 'Oficjalna witryna szkoły',
+      type: 'url',
+      validation: (r) => r.uri({ scheme: ['https'] }),
+    }),
+    defineField({
+      name: 'googleProfileUrl',
+      title: 'Link do wizytówki Google',
+      type: 'url',
+      validation: (r) => r.uri({ scheme: ['https'] }),
+    }),
+    defineField({
+      name: 'email',
+      title: 'Publiczny e-mail szkoły',
+      type: 'string',
+      validation: (r) => r.email(),
+    }),
+    defineField({
+      name: 'telephone',
+      title: 'Publiczny telefon szkoły',
+      type: 'string',
+    }),
+  ],
+});

@@ -6,12 +6,20 @@ export const siteUrl = (
 export const asset = (name: string) => `${basePath}/images/${name}`;
 export const absolute = (path = '') =>
   `${siteUrl}${path ? '/' + path.replace(/^\/|\/$/g, '') + '/' : '/'}`;
+import { homeSeo } from './seo-content';
 import { defaultSocials } from './socials';
 export const defaultSettings = {
-  seoTitle: 'Językowa Stacja — angielski i hiszpański online',
-  seoDescription:
-    'Nauka angielskiego i hiszpańskiego online dla dzieci, młodzieży i dorosłych. Lekcje indywidualne, w parze i grupowe dopasowane do Ciebie.',
-  seoImage: 'og-default.png',
+  seoTitle: homeSeo.title,
+  seoDescription: homeSeo.description,
+  seoImage: 'logo.webp',
+  organization: {
+    name: 'Językowa Stacja',
+    url: '',
+    description: '',
+    googleProfileUrl: '',
+    email: '',
+    telephone: '',
+  },
   socialLinks: defaultSocials,
   socialTitle: 'Język żyje też między lekcjami.',
   socialIntro:

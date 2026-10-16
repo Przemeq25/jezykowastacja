@@ -86,3 +86,7 @@ JSON-LD obejmuje `EducationalOrganization`, `WebSite`, `WebPage`, breadcrumbs, w
 To podstawa techniczna SEO i czytelności dla systemów AI, bez gwarancji indeksacji lub pozycji. Po migracji na domenę docelową trzeba ustawić `NEXT_PUBLIC_SITE_URL` i ścieżki, wdrożyć stronę oraz zweryfikować domenę i sitemapę w Search Console. Na GitHub Pages zmiana treści aktualizuje metadane przy następnym buildzie. Zapisy ActiveNow są aktywne; kontakt wymaga aktywacji odbiorcy w FormSubmit. Analityka nie jest włączona.
 
 `npm run test` uruchamia testy interakcji (menu, walidacja, karuzela) i generowania metadanych/JSON-LD. Są też częścią GitHub Actions. W tym środowisku testy DOM nie zastępują pełnej wizualnej kontroli w przeglądarce.
+
+## Uzupełnianie SEO i organizacji
+
+Studio ma narzędzie **Uzupełnianie SEO** z podglądem i atomowym zapisem brakujących pól. Ustawia logo jako obraz SEO, zachowuje własne tytuły, opisy i noindex. Dokumentacja źródeł organizacji, działania i typów JSON-LD: [docs/seo.md](docs/seo.md).
