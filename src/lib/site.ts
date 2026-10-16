@@ -6,20 +6,13 @@ export const siteUrl = (
 export const asset = (name: string) => `${basePath}/images/${name}`;
 export const absolute = (path = '') =>
   `${siteUrl}${path ? '/' + path.replace(/^\/|\/$/g, '') + '/' : '/'}`;
-import { homeSeo } from './seo-content';
+import { homeSeo, organizationDefaults } from './seo-content';
 import { defaultSocials } from './socials';
 export const defaultSettings = {
   seoTitle: homeSeo.title,
   seoDescription: homeSeo.description,
   seoImage: 'logo.webp',
-  organization: {
-    name: 'Językowa Stacja',
-    url: '',
-    description: '',
-    googleProfileUrl: '',
-    email: '',
-    telephone: '',
-  },
+  organization: { ...organizationDefaults },
   socialLinks: defaultSocials,
   socialTitle: 'Język żyje też między lekcjami.',
   socialIntro:

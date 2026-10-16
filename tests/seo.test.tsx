@@ -45,10 +45,10 @@ describe('SEO z treści CMS', () => {
     });
     expect(JSON.stringify(graph)).not.toContain('kontakt@example.com');
     expect(JSON.stringify(graph)).not.toContain('AggregateRating');
-    expect(graph['@graph'][0]).toHaveProperty(
-      'sameAs',
-      defaultSettings.socialLinks.map((link) => link.url),
-    );
+    expect(graph['@graph'][0]).toHaveProperty('sameAs', [
+      ...defaultSettings.socialLinks.map((link) => link.url),
+      defaultSettings.organization.googleProfileUrl,
+    ]);
   });
   it('odrzuca obce domeny i niebezpieczne protokoły dla profili społecznościowych', () => {
     expect(

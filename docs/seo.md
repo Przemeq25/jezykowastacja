@@ -39,3 +39,5 @@ w meta keywords. Dane strukturalne opisują treść, nie gwarantują pozycji w G
 ani obecności w odpowiedziach AI. GitHub Pages potrzebuje builda po zmianie CMS.
 
 Przy braku własnych tytułów i opisów CMS strona korzysta z tych samych propozycji jako wartości domyślnych. Nie zapisuje ich automatycznie do Content Lake: ten zapis nadal wymaga uwierzytelnienia. Podstrona Mięczaków została wycofana z publikacji i uzupełniania SEO na życzenie właściciela; dokument pozostaje w historii CMS.
+
+Dane organizacji zweryfikowane na oryginalnej witrynie również mają wartości domyślne w aplikacji. Nadpisują je pola opublikowane w Sanity. Dzięki temu JSON-LD organizacji i kontakt w stopce działają przed wykonaniem zapisu uzupełniającego w CMS.
