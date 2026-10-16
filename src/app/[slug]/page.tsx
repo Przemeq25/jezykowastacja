@@ -8,6 +8,8 @@ import { getPages, getSettings, getPosts, getCommunity } from '@/lib/cms';
 import { Button, Photo, Eyebrow, Sections, Faq, JsonLd } from '@/components/ui';
 import SignupForm from '@/components/signup-form';
 import ContactForm from '@/components/contact-form';
+import { isIndexablePage } from '@/lib/page-visibility';
+import { basePath } from '@/lib/site';
 import { contactEmail } from '@/lib/contact';
 export async function generateStaticParams() {
   return (await getPages()).map((p) => ({ slug: p.slug }));
@@ -27,7 +29,7 @@ export async function generateMetadata({
         description: p.seo?.description || p.description,
         path: slug,
         image: p.seo?.image || settings.seoImage,
-        noIndex: p.seo?.noIndex,
+        noIndex: !isIndexablePage(p),
       })
     : {};
 }
@@ -41,6 +43,12 @@ export default async function Page({
   if (!page) notFound();
   const s = await getSettings();
   const community = slug === 'o-nas' ? await getCommunity() : null;
+  const information = page.kind === 'legal' || page.kind === 'faq';
+  const attachmentUrl = page.attachment?.url
+    ? page.attachment.url.startsWith('https://')
+      ? page.attachment.url
+      : `${basePath}/${page.attachment.url}`
+    : undefined;
   return (
     <>
       <section className="page-hero">
@@ -54,14 +62,22 @@ export default async function Page({
             </span>
             {page.eyebrow}
           </nav>
-          <div className="grid items-center gap-10 md:grid-cols-[1.5fr_1fr]">
+          <div
+            className={
+              information
+                ? 'max-w-4xl'
+                : 'grid items-center gap-10 md:grid-cols-[1.5fr_1fr]'
+            }
+          >
             <div>
               <Eyebrow>{page.eyebrow}</Eyebrow>
               <h1 className="max-w-2xl text-4xl md:text-5xl">{page.title}</h1>
               <p className="mt-6 max-w-xl text-lg text-muted">
                 {page.description}
               </p>
-              {!['contact', 'blog'].includes(page.kind || '') && (
+              {!['contact', 'blog', 'faq', 'legal'].includes(
+                page.kind || '',
+              ) && (
                 <div className="mt-8">
                   <Button
                     href={
@@ -75,12 +91,16 @@ export default async function Page({
                 </div>
               )}
             </div>
-            <Photo
-              name={page.image === 'philosophy.webp' ? 'logo.webp' : page.image}
-              alt={page.eyebrow}
-              priority
-              className="aspect-[4/3] rounded-[2rem] object-cover"
-            />
+            {!information && (
+              <Photo
+                name={
+                  page.image === 'philosophy.webp' ? 'logo.webp' : page.image
+                }
+                alt={page.eyebrow}
+                priority
+                className="aspect-[4/3] rounded-[2rem] object-cover"
+              />
+            )}
           </div>
         </div>
       </section>
@@ -88,7 +108,64 @@ export default async function Page({
         <div
           className={`py-16 ${page.kind === 'contact' ? 'grid gap-10 md:grid-cols-2' : 'mx-auto max-w-3xl'}`}
         >
-          <Sections sections={page.sections} />
+          {(page.sections.length > 0 ||
+            page.documentStatus === 'review' ||
+            attachmentUrl ||
+            page.kind === 'faq') && (
+            <div
+              className={page.kind === 'legal' ? 'legal-content' : undefined}
+            >
+              {page.documentStatus === 'review' && (
+                <aside
+                  className="document-review"
+                  aria-label="Status dokumentu"
+                >
+                  <strong>Projekt do weryfikacji</strong>
+                  <p>
+                    Dokument wymaga uzupełnienia i zatwierdzenia przez
+                    administratora szkoły.
+                  </p>
+                </aside>
+              )}
+              {attachmentUrl && (
+                <div className="document-file">
+                  <a
+                    href={attachmentUrl}
+                    className="action action--secondary"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {page.slug === 'regulamin'
+                      ? 'Otwórz oryginalny regulamin (PDF)'
+                      : 'Otwórz dokument (PDF)'}
+                    <ArrowRight size={18} aria-hidden="true" />
+                  </a>
+                  <details>
+                    <summary>Podgląd dokumentu PDF</summary>
+                    <object
+                      data={attachmentUrl}
+                      type="application/pdf"
+                      aria-label={`Dokument PDF: ${page.title}`}
+                    >
+                      <p>
+                        Jeśli podgląd nie jest dostępny, otwórz PDF przyciskiem
+                        powyżej.
+                      </p>
+                    </object>
+                  </details>
+                </div>
+              )}
+              <Sections sections={page.sections} />
+              {page.kind === 'faq' && (
+                <Faq
+                  items={page.faq}
+                  structured={false}
+                  compact
+                  title="Organizacja, zapisy i nauka"
+                />
+              )}
+            </div>
+          )}
           {page.kind === 'contact' && (
             <>
               <div>
@@ -157,7 +234,7 @@ export default async function Page({
             <TestimonialsSection content={community} />
           </>
         )}
-        <Faq items={page.faq} />
+        {page.kind !== 'faq' && <Faq items={page.faq} />}
       </div>
       <JsonLd
         data={pageGraph(page, s, page.kind === 'blog' ? await getPosts() : [])}

@@ -43,6 +43,7 @@ const footerSchool = [
   ['O nas i kadrze', '/o-nas/'],
   ['Opinie uczniów', '/#opinie'],
   ['Poradniki językowe', '/blog/'],
+  ['FAQ', '/faq/'],
   ['Kontakt', '/kontakt/'],
 ];
 export default async function Layout({
@@ -172,6 +173,10 @@ export default async function Layout({
             </div>
             <div className="footer-bottom">
               <span>© {new Date().getFullYear()} Językowa Stacja</span>
+              <nav className="footer-legal-links" aria-label="Dokumenty szkoły">
+                <Link href="/regulamin/">Regulamin</Link>
+                <Link href="/polityka-prywatnosci/">Polityka prywatności</Link>
+              </nav>
               <span>
                 Z ciekawością do języków <Heart size={14} aria-hidden="true" />
               </span>

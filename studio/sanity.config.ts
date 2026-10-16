@@ -1,3 +1,4 @@
+import { InformationSetupTool } from './information-setup-tool';
 import { defineConfig, defineType, defineField } from 'sanity';
 import { structureTool } from 'sanity/structure';
 import { SetupTool } from './setup-tool';
@@ -114,6 +115,11 @@ export default defineConfig({
     }),
   ],
   tools: [
+    {
+      name: 'information-setup',
+      title: 'FAQ i dokumenty',
+      component: InformationSetupTool,
+    },
     { name: 'setup', title: 'Uruchomienie CMS', component: SetupTool },
     { name: 'seo-setup', title: 'Uzupełnianie SEO', component: SeoSetupTool },
   ],
@@ -154,6 +160,42 @@ export default defineConfig({
           }),
           defineField({ name: 'eyebrow', title: 'Nadtytuł', type: 'string' }),
           defineField({
+            name: 'documentStatus',
+            title: 'Status dokumentu',
+            type: 'string',
+            hidden: ({ document }) => document?.kind !== 'legal',
+            options: {
+              list: [
+                { title: 'Do weryfikacji — noindex', value: 'review' },
+                { title: 'Treść zatwierdzona', value: 'approved' },
+              ],
+            },
+            description:
+              'Projekt ma widoczne oznaczenie, noindex i jest wyłączony z sitemapy. Po weryfikacji wybierz treść zatwierdzoną i Publish.',
+          }),
+          defineField({
+            name: 'attachment',
+            title: 'Załącznik PDF',
+            type: 'file',
+            options: { accept: 'application/pdf' },
+            description:
+              'Plik jest przechowywany w Sanity i dostępny w podglądzie na stronie.',
+          }),
+          defineField({
+            name: 'sourceUrl',
+            title: 'Źródło dokumentu',
+            type: 'url',
+            validation: (r) => r.uri({ scheme: ['https'] }),
+          }),
+          defineField({
+            name: 'sourceNote',
+            title: 'Pochodzenie treści — notatka redakcyjna',
+            type: 'text',
+            description:
+              'Informacja dla redaktora, niewyświetlana w treści strony.',
+          }),
+
+          defineField({
             name: 'faq',
             title: 'FAQ',
             type: 'array',
@@ -170,6 +212,8 @@ export default defineConfig({
                 { title: 'Zapisy grupowe', value: 'group' },
                 { title: 'Kontakt', value: 'contact' },
                 { title: 'Lista bloga', value: 'blog' },
+                { title: 'FAQ', value: 'faq' },
+                { title: 'Regulamin lub polityka', value: 'legal' },
               ],
             },
           }),

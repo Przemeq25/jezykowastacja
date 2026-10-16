@@ -1,0 +1,175 @@
+[
+  {
+    "slug": "faq",
+    "title": "Najczęściej zadawane pytania",
+    "description": "Odpowiedzi na pytania o naukę angielskiego i hiszpańskiego online, poziomy, formy zajęć, zapisy i organizację kursów.",
+    "eyebrow": "FAQ Językowej Stacji",
+    "image": "logo.webp",
+    "sections": [],
+    "faq": [
+      {
+        "question": "Jakich języków można się uczyć w Językowej Stacji?",
+        "answer": "Szkoła prowadzi zajęcia języka hiszpańskiego i angielskiego."
+      },
+      {
+        "question": "Dla kogo są zajęcia?",
+        "answer": "Oferta jest skierowana do osób w każdym wieku, w tym dzieci w wieku przedszkolnym, młodzieży i dorosłych. Zajęcia są dopasowywane do poziomu i potrzeb uczestników."
+      },
+      {
+        "question": "Jak odbywają się zajęcia online?",
+        "answer": "Zajęcia odbywają się online na platformie MS Teams, Zoom lub Google Meet. Potrzebujesz dostępu do internetu; do korzystania z panelu zapisów także przeglądarki i aktywnego adresu e-mail."
+      },
+      {
+        "question": "Jakie formy nauki są dostępne?",
+        "answer": "Możesz wybrać lekcje indywidualne, dwuosobowe lub grupowe. Szkoła prowadzi także kursy firmowe, których organizacja jest ustalana indywidualnie."
+      },
+      {
+        "question": "Czy można zacząć od podstaw?",
+        "answer": "Tak. Zgodnie z regulaminem na kursy na poziomie podstawowym nie ma wymagań kwalifikacyjnych."
+      },
+      {
+        "question": "Jak ustalany jest poziom grupy?",
+        "answer": "Przydział do grup następuje na podstawie testu poziomującego lub rozmowy z lektorem, sprawdzającej umiejętności w języku hiszpańskim albo angielskim."
+      },
+      {
+        "question": "Jak zapisać się na kurs?",
+        "answer": "Skorzystaj z formularza zapisów na stronie zajęć grupowych albo indywidualnych. Regulamin przewiduje zaakceptowanie zasad, uzgodnienie planu zajęć z lektorem i opłacenie kursu przez płatności online. Przy zapisie podajesz adres e-mail oraz numer telefonu."
+      },
+      {
+        "question": "Gdzie sprawdzić ceny i dostępne terminy?",
+        "answer": "Sprawdź aktualną ofertę w formularzach zapisów i panelu kursanta ActiveNow. Szczegółową organizację zajęć, plany grup i cennik szkoła udostępnia w panelu. W razie wątpliwości skontaktuj się z biurem."
+      },
+      {
+        "question": "Czy dołączając do grupy w trakcie semestru płacę za wcześniejsze lekcje?",
+        "answer": "Nie. Zgodnie z regulaminem osoby dołączające w trakcie kursu wnoszą opłatę jedynie za zajęcia odbywające się od momentu ich dołączenia."
+      },
+      {
+        "question": "Jak odwołać lekcję indywidualną?",
+        "answer": "Regulamin przewiduje możliwość przesunięcia zajęć odwołanych co najmniej 24 godziny przed rozpoczęciem na uzgodniony z lektorem termin w ciągu miesiąca. Zajęcia odwołane później lub nieodwołane są traktowane jako zrealizowane. Odwołanie zgłasza się przez ActiveNow, SMS lub e-mail do szkoły. Pełne zasady znajdziesz w regulaminie."
+      },
+      {
+        "question": "Czy cena obejmuje podręczniki?",
+        "answer": "Zgodnie z regulaminem cena kursu nie obejmuje podręczników i materiałów pomocniczych w wersji drukowanej. Materiały udostępniane m.in. jako e-booki służą wyłącznie do użytku uczestnika i nie mogą być dalej rozpowszechniane."
+      },
+      {
+        "question": "Czy można otrzymać certyfikat?",
+        "answer": "Regulamin przewiduje certyfikat ukończenia kursu przy frekwencji co najmniej 75%. Certyfikat jest wydawany na prośbę uczestnika w ciągu 14 dni od ukończenia kursu i przesyłany e-mailem w formie elektronicznej."
+      }
+    ],
+    "kind": "faq",
+    "documentStatus": "approved",
+    "sourceUrl": "https://app.activenow.io/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6MjQxMjI2ODcsInB1ciI6ImJsb2JfaWQifX0=--53b5183fa4f58e38eafd251936e9f1183f9c23e6/REGULAMIN%20KURS%C3%93W%20J%C4%98ZYKOWYCH%20JS.pdf?disposition=attachment",
+    "sourceNote": "Odpowiedzi opracowane na podstawie opisu szkoły na jezykowastacja.pl i regulaminu udostępnionego w formularzu ActiveNow. Na oryginalnej witrynie nie znaleziono osobnego FAQ.",
+    "seo": {
+      "title": "FAQ — angielski i hiszpański online | Językowa Stacja",
+      "description": "Sprawdź odpowiedzi o zajęciach online, poziomach, zapisach, materiałach i organizacji kursów angielskiego oraz hiszpańskiego w Językowej Stacji."
+    }
+  },
+  {
+    "slug": "regulamin",
+    "title": "Regulamin szkoły języków obcych „Językowa Stacja”",
+    "description": "Zasady organizacji kursów językowych, zapisów, płatności i uczestnictwa. Przeczytaj treść lub otwórz oryginalny dokument PDF.",
+    "eyebrow": "Dokumenty szkoły",
+    "image": "logo.webp",
+    "sections": [
+      {
+        "title": "§ 1 ZAKRES REGULAMINU",
+        "text": "Niniejszy Regulamin „Językowej Stacji” Szkoły Języków Obcych, prowadzonej przez Pamelę Ryduchowską, adres: 80-180 Gdańsk, ul. Porębskiego 54/20, NIP 5552049202 (dalej: „Szkoła”), określa zasady, zakres i warunki uczestnictwa w zajęciach języka hiszpańskiego oraz angielskiego."
+      },
+      {
+        "title": "§ 2 ORGANIZACJA KURSÓW I ZAJĘĆ",
+        "text": "1. Rok szkolny trwa dwa semestry. W święta i dni ustawowo wolne od pracy zajęcia nie odbywają się. Szczegółowa organizacja bieżącego roku szkolnego, ze wskazaniem grup, planów zajęć oraz cennik zajęć jest dostępny w panelu kursanta w systemie Active Now.\n\n2. Szkoła organizuje kursy języka hiszpańskiego i angielskiego dla osób w każdym wieku, w tym dla dzieci w wieku przedszkolnym. Są to zajęcia indywidualne, dwuosobowe i w grupach wieloosobowych:\n\na) online na platformie MS Teams, Zoom lub Google Meet;\n\n3. Organizacja roku szkolnego nie obowiązuje klientów uczestniczących w kursach indywidualnych lub firmowych. W tych przypadkach długość trwania kursu oraz przerwy międzysemestralne ustalane są indywidualnie z klientem.\n\n4. Zajęcia na kursach prowadzone są według ustalonego planu zajęć.\n\n5. Ewentualna zmiana terminu zajęć ustalana jest z grupą i wymaga zgody wszystkich uczestników kursu.\n\n6. Zapis na kurs następuje poprzez łączne spełnienie następujących warunków:\n\na) zaakceptowanie niniejszego Regulaminu online lub poprzez jego podpisanie;\n\nb) uzgodnienie planu zajęć z Lektorem;\n\nc) opłacenie kursu przez płatności online.\n\n7. W kwestiach organizacyjnych należy kontaktować się z administracją szkoły pod numerem tel. 881 774 936 lub adresem e-mail: jezykowastacja@gmail.com\n\n8. Przy zapisie na kurs kursant podaje swój adres poczty elektronicznej (e-mail) oraz numer telefonu.\n\n9. W celu prawidłowego korzystania ze Strony i innych oferowanych przez Usługodawcę usług konieczne jest spełnienie następujących warunków technicznych:\n\n- posiadanie dostępu do sieci Internet;\n\n- posiadanie przeglądarki internetowej umożliwiającej korzystanie z panelu rezerwacji;\n\n- posiadanie aktywnego konta e-mail.\n\n10. Usługodawca nie gwarantuje niezakłóconego i wolnego od błędów dostępu do Strony."
+      },
+      {
+        "title": "§ 3 KWALIFIKACJA DO GRUPY",
+        "text": "1. Przydział uczestników do grup następuje na podstawie testu poziomującego lub rozmowy z Lektorem, sprawdzającym umiejętności uczestnika w języku hiszpańskim/angielskim.\n\n2. Na kursy na poziomie podstawowym nie ma wymagań kwalifikacyjnych."
+      },
+      {
+        "title": "§ 4 ILOŚĆ OSÓB W GRUPIE",
+        "text": "W przypadku zajęć grupowych i zmniejszenia się liczby osób w grupie Szkoła ma prawo połączyć grupę z inną grupą o zbliżonym poziomie językowym lub w przypadku braku takiej możliwości - zaproponować zmianę warunków umowy i podwyższenie ceny kursu."
+      },
+      {
+        "title": "§ 5 CENA KURSU I ODWOŁYWANIE ZAJĘĆ",
+        "text": "1. Ceny kursów dostępne są w aktualnym cenniku dostępnym na stronie internetowej jezykowastacja.pl Lekcja indywidualna 120 zł Lekcja w duecie 90 zł Lekcja grupowa (grupa 3-5 osobowa) 70 zł\n\n2. Opłatę za kurs uiszcza się za pomocą płatności online, podczas zapisu przez stronę internetową lub poprzez zalogowanie się na Panel Kursanta na stronie jezykowastacja.pl. Płatność za kurs odbywa się z kursu za wszystkie zajęcia w semestrze lub w indywidualnych przypadkach w ratach. Płatności rat są uiszczane do 5 dnia miesiąca.\n\n4. W razie nieuiszczenia opłaty za kurs w terminie wskazanym w fakturze, Szkoła zastrzega możliwość zrezygnowania ze współpracy z kursantem lub z grupą - o ile płatność dotyczy całej grupy. W przypadku nieterminowego wnoszenia opłat Szkoła może pobierać odsetki ustawowe.\n\n5. Możliwe jest wnoszenie płatności za kurs grupowy w ratach. Cena kursu opłacanego w ratach nie podlega zwiększeniu. Wysokość i ilość rat zależy od rodzaju kursu i jest ustalana indywidualnie.\n\n6. Osoby dołączające do grupy w trakcie trwania kursu wnoszą opłatę jedynie za zajęcia odbywające się od momentu ich dołączenia do grupy. Kursanci nie ponoszą żadnych opłat za zajęcia, które odbyły się przed ich dołączeniem do grupy.\n\n7. Odwołanie zajęć indywidualnych nie później niż 24 godziny przed planowanym rozpoczęciem daje możliwość przesunięcia odwołanych zajęć na inny termin w przeciągu miesiąca, uzgodniony z Lektorem, bez zmiany ceny kursu. Odwołanie zajęć później niż 24 godziny przed rozpoczęciem lub zaniechanie odwołania przez kursanta – nie daje możliwości przesunięcia zajęć na inny termin. W takim przypadku zajęcia traktowane są tak, jakby się odbyły.\n\n8. Odwołanie zajęć przez kursanta odbywa się poprzez platformę Active Now, wysłanie sms na numer telefonu 881 774 936 lub maila na adres: językowastacja@gmail.com\n\n9. Nie ma możliwości odwołania zajęć grupowych przez kursantów.\n\n10. W przypadku spóźnienia kursanta na zajęcia lekcja nie będzie wydłużana.\n\n11. Szkoła zastrzega możliwość odwoływania zajęć w wyjątkowych wypadkach. W razie niezrealizowania zajęć z przyczyn leżących po stronie Szkoły (Lektora), w całości lub w części, zajęcia zostaną zrealizowane w terminie późniejszym, dogodnym dla Kursanta. Jeśli do końca trwania semestru nie będzie możliwości ustalenia nowego terminu, Szkoła zwraca koszty odwołanych zajęć.\n\n12. W przypadku kursów online, w razie problemów technicznych z połączeniem internetowym ze strony kursanta lub Lektora zajęcia zostaną powtórzone w terminie późniejszym.\n\n13. Cena kursu nie obejmuje opłaty za podręczniki oraz materiały pomocnicze w wersji drukowanej. Materiały są udostępniane Kursantom w postaci m.in. e-booków, do wyłącznego użytkowania przez Kursanta bez możliwości dalszego rozpowszechniania materiałów.\n\n14.W przypadku nieobecności na zajęciach grupowych, Lektor prowadzący zajęcia nagrywa lekcje i udostępnia nieobecnym uczestnikom grupy nagranie, które jest dostępne przez dwa Tygodnie.\n\n15. Zajęcia indywidualne oraz w parze są opłacane z góry, przed pierwszą lekcją, na początku każdego miesiąca kalendarzowego."
+      },
+      {
+        "title": "§ 6 OŚWIADCZENIE O REZYGNACJI Z KURSU",
+        "text": "1. Kursant zajęć indywidualnych ma prawo zrezygnować z kontynuacji kontynuowania nauki na danym kursie w dowolnym momencie.\n\n2. Rezygnacja następuje poprzez oświadczenie uczestnika kursu przesłanego mailem na adres Szkoły co najmniej z trzydziestodniowym (30) wyprzedzeniem. Pierwszy dzień tego terminu przypada na dzień następny po doręczeniu maila.\n\n3. Kursant rezygnujący z kursu zobowiązany jest do uregulowania należnych płatności, włączając zajęcia planowane na okres wypowiedzenia.\n\n4.Kursant uczęszczający na zajęcia grupowe ma możliwość odstąpienia od umowy do 14 dni od jej zawarcia.\n\n5. Kursant wykupujący pakiet lekcji (zarówno w przypadku zajęć indywidualnych, w parze jak i grupowych) zobowiązuje się do wykorzystania wszystkich lekcji w ramach wykupionego pakietu do końca semestru na który się zapisał lub w ramach czasowych obowiązujących w danym pakiecie. Kwota za niewykorzystane lekcje nie będzie zwracana.\n\n6. Kursant uczęszczający na zajęcia grupowe wykupuje kurs na cały semestr (płatne z góry lub w ratach). W przypadku odstąpienia od umowy przez kursanta po upływie 14 dni od zawarcia umowy, kursant zobowiązany jest do uiszczenia pozostałych rat do końca trwania semestru.\n\n7. Jeśli kursant indywidualny odwoła łącznie co najmniej połowę (50%) zajęć przypadających na dany kurs, Szkoła ma możliwość zrezygnowania ze współpracy z tym kursantem, bez możliwości zwrotu kosztów kursu. Oświadczenie o rezygnacji ze współpracy następuje poprzez przesłanie oświadczenie mailem i ma skutek natychmiastowy, czyli od dnia doręczenia tego maila."
+      },
+      {
+        "title": "§ 7 CERTYFIKAT",
+        "text": "1. Kursant otrzymuje certyfikat ukończenia kursu jeśli jego frekwencja na zajęciach wynosi co najmniej 75%.\n\n2. Certyfikaty wydawane są do czternastu (14) dni od daty ukończenia kursu na prośbę uczestnika.\n\n3. Certyfikat jest wystawiany w formie elektronicznej i jest przesyłany na adres e-mail uczestnika kursu."
+      },
+      {
+        "title": "§ 8 WNOSZENIE REKLAMACJI",
+        "text": "1. Reklamację dotyczącą kursu lub pracy Szkoły należy przesłać do na adres email: jezykowastacja@gmail.com lub przesłać pocztą na adres szkoły.\n\n2. Reklamacja zostanie rozpatrzona w ciągu czternastu (14) dni od daty wpłynięcia, a odpowiedź zostanie przesłana na e-mail nadawcy.\n\n3. Reklamacje można składać najpóźniej do sześćdziesięciu (60) dni od daty zakończenia kursu. Pierwszy dzień tego terminu przypada na dzień następny po ostatnich zajęciach danego Kursu."
+      },
+      {
+        "title": "§ 9 POSTANOWIENIA KOŃCOWE",
+        "text": "1. Zmiany Regulaminu będą podawane do wiadomości kursantów z trzydziestodniowym (30) wyprzedzeniem poprzez przesłanie pocztą elektroniczną (mailem).\n\n2. Po zapoznaniu się z Regulaminem i jego akceptacji przez Kursanta (lub przedstawiciela ustawowego Kursanta) zostanie zawarta umowa cywilnoprawna pomiędzy Językową Stacją Pamela Ryduchowska a kursantem (lub przedstawicielem ustawowym Kursanta), regulująca wzajemnie zobowiązania Stron.\n\n3. Akceptacja regulaminu jest jednoznaczna z zawarciem umowy o świadczenie usług edukacyjnych. Od umowy można odstąpić w ciągu 14 dni od jej zawarcia (czyli potwierdzenia jej w systemie, wraz z akceptacją regulaminu) bez podawania przyczyny.\n\n4. W sprawach nieuregulowanych postanowieniami niniejszego Regulaminu stosuje się odpowiednie przepisy Kodeksu Cywilnego.\n\n5. Spory dotyczące treści Regulaminu rozstrzyga Sąd Powszechny w Gdańsku."
+      }
+    ],
+    "faq": [],
+    "kind": "legal",
+    "documentStatus": "approved",
+    "sourceUrl": "https://app.activenow.io/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6MjQxMjI2ODcsInB1ciI6ImJsb2JfaWQifX0=--53b5183fa4f58e38eafd251936e9f1183f9c23e6/REGULAMIN%20KURS%C3%93W%20J%C4%98ZYKOWYCH%20JS.pdf?disposition=attachment",
+    "sourceNote": "Transkrypcja dokumentu PDF udostępnionego w formularzu zapisów szkoły. Zachowano treść i numerację oryginału; uporządkowano jedynie łamanie wierszy.",
+    "attachment": {
+      "url": "documents/regulamin-kursow-jezykowych.pdf",
+      "originalFilename": "REGULAMIN KURSÓW JĘZYKOWYCH JS.pdf"
+    },
+    "seo": {
+      "title": "Regulamin kursów językowych | Językowa Stacja",
+      "description": "Regulamin Językowej Stacji: organizacja kursów, zapisy, płatności, odwoływanie zajęć, rezygnacja i reklamacje. Przeczytaj lub otwórz oryginalny PDF."
+    }
+  },
+  {
+    "slug": "polityka-prywatnosci",
+    "title": "Polityka prywatności",
+    "description": "Projekt informacji o przetwarzaniu danych w Językowej Stacji, przygotowany do weryfikacji i uzupełnienia przez administratora szkoły.",
+    "eyebrow": "Projekt dokumentu",
+    "image": "logo.webp",
+    "sections": [
+      {
+        "title": "1. Administrator danych",
+        "text": "Administratorem danych jest Językowa Stacja Pamela Ryduchowska, ul. Porębskiego 54/20, 80-180 Gdańsk, NIP 5552049202. Kontakt: jezykowastacja@gmail.com, tel. +48 881 774 936. Dane identyfikacyjne pochodzą z regulaminu szkoły."
+      },
+      {
+        "title": "2. Zakres i cele przetwarzania",
+        "text": "Formularz kontaktowy zbiera adres e-mail, treść wiadomości i opcjonalnie imię, aby umożliwić udzielenie odpowiedzi. Formularze zapisów ActiveNow służą organizacji udziału w zajęciach; zakres wymaganych danych uczestnika lub opiekuna jest widoczny w formularzu.\n\nDo potwierdzenia przez administratora: pełny katalog celów oraz podstaw prawnych, w tym obsługa zapytań, zawieranie i wykonywanie umów, rozliczenia i ewentualne dochodzenie roszczeń."
+      },
+      {
+        "title": "3. Usługi wykorzystywane przez stronę",
+        "text": "Wysyłkę wiadomości z formularza kontaktowego obsługuje FormSubmit. Zapisy na zajęcia obsługuje ActiveNow. Strona jest hostowana w GitHub Pages, a treści są zarządzane w Sanity; obrazy mogą być pobierane z CDN Sanity. Weryfikacja CAPTCHA formularza kontaktowego odbywa się w usłudze dostawcy.\n\nDo potwierdzenia przed zatwierdzeniem dokumentu: role dostawców, dane podmiotów, zawarte umowy oraz zasady dalszego przetwarzania danych."
+      },
+      {
+        "title": "4. Okres przechowywania danych",
+        "text": "Do uzupełnienia przez administratora: okresy przechowywania korespondencji, danych zapisów, dokumentacji rozliczeniowej i kopii zapasowych oraz zasady usuwania danych u dostawców. Nie ustalono tych okresów na podstawie samej konfiguracji strony."
+      },
+      {
+        "title": "5. Prawa osób, których dane dotyczą",
+        "text": "Na warunkach określonych w RODO osobie, której dane dotyczą, mogą przysługiwać prawa dostępu do danych, ich sprostowania, usunięcia, ograniczenia przetwarzania, przenoszenia danych i wniesienia sprzeciwu. Jeśli podstawą przetwarzania jest zgoda, można ją wycofać bez wpływu na zgodność z prawem wcześniejszego przetwarzania. Przysługuje także prawo wniesienia skargi do Prezesa Urzędu Ochrony Danych Osobowych.\n\nPrzed zatwierdzeniem należy dopasować opis praw do faktycznie stosowanych podstaw przetwarzania."
+      },
+      {
+        "title": "6. Pamięć przeglądarki i zewnętrzne formularze",
+        "text": "Własny formularz kontaktowy wykorzystuje sessionStorage do zapisania czasu ostatniej próby wysłania, aby ograniczyć wielokrotne wysyłanie wiadomości. Mechanizm ten nie zapisuje treści wiadomości.\n\nDo zweryfikowania przez administratora: cookies i inne mechanizmy stosowane przez zewnętrzne formularze oraz CAPTCHA, wymagane informacje i ustawienia zgód. Nie wdrożono własnej analityki reklamowej."
+      },
+      {
+        "title": "7. Przekazywanie danych poza EOG",
+        "text": "Do zweryfikowania przed zatwierdzeniem: lokalizacje przetwarzania danych przez każdego dostawcę, ewentualne transfery poza Europejski Obszar Gospodarczy i stosowane zabezpieczenia. Samo użycie usługi nie potwierdza jej warunków przetwarzania."
+      },
+      {
+        "title": "8. Status dokumentu",
+        "text": "To projekt przygotowany dla obecnej konfiguracji strony, a nie polityka skopiowana z oryginalnej witryny. Na oryginalnej stronie ani w regulaminie nie znaleziono odrębnej polityki prywatności. Administrator szkoły powinien zweryfikować i uzupełnić wskazane punkty przed zatwierdzeniem dokumentu."
+      }
+    ],
+    "faq": [],
+    "kind": "legal",
+    "documentStatus": "review",
+    "sourceNote": "Odrębnej polityki nie odnaleziono w oryginalnej witrynie ani w regulaminie. Projekt opiera się na danych szkoły z regulaminu oraz konfiguracji aktualnej strony. Wymaga weryfikacji przed publikacją jako dokument obowiązujący.",
+    "seo": {
+      "title": "Polityka prywatności — projekt | Językowa Stacja",
+      "description": "Projekt informacji o danych i formularzach Językowej Stacji do weryfikacji przez administratora szkoły."
+    }
+  }
+]

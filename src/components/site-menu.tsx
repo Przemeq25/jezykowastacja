@@ -10,6 +10,7 @@ export const navigation = [
   ['Angielski', '/angielski-online/'],
   ['O nas', '/o-nas/'],
   ['Blog', '/blog/'],
+  ['FAQ', '/faq/'],
   ['Kontakt', '/kontakt/'],
 ] as const;
 export default function SiteMenu({ socials }: { socials: SocialLink[] }) {

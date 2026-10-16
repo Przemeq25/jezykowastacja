@@ -96,17 +96,24 @@ export function Sections({ sections }: { sections: Section[] }) {
 }
 export function Faq({
   items,
+  structured = true,
+  title = 'Wszystko zaczyna się od rozmowy.',
+  compact = false,
 }: {
   items: { question: string; answer: string }[];
+  structured?: boolean;
+  title?: string;
+  compact?: boolean;
 }) {
   if (!items.length) return null;
   return (
     <>
-      <section data-reveal className="mx-auto max-w-3xl py-20">
+      <section
+        data-reveal
+        className={`mx-auto max-w-3xl ${compact ? 'py-0' : 'py-20'}`}
+      >
         <Eyebrow>Masz pytania?</Eyebrow>
-        <h2 className="mb-9 text-3xl md:text-4xl">
-          Wszystko zaczyna się od rozmowy.
-        </h2>
+        <h2 className="mb-9 text-3xl md:text-4xl">{title}</h2>
         {items.map((f) => (
           <details
             key={f.question}
@@ -124,17 +131,19 @@ export function Faq({
           </details>
         ))}
       </section>
-      <JsonLd
-        data={{
-          '@context': 'https://schema.org',
-          '@type': 'FAQPage',
-          mainEntity: items.map((item) => ({
-            '@type': 'Question',
-            name: item.question,
-            acceptedAnswer: { '@type': 'Answer', text: item.answer },
-          })),
-        }}
-      />
+      {structured && (
+        <JsonLd
+          data={{
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            mainEntity: items.map((item) => ({
+              '@type': 'Question',
+              name: item.question,
+              acceptedAnswer: { '@type': 'Answer', text: item.answer },
+            })),
+          }}
+        />
+      )}
     </>
   );
 }

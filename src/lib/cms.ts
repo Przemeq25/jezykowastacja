@@ -1,3 +1,4 @@
+import { withInformationPages } from './information-pages';
 import { withSeoDefaults } from './seo-content';
 import { isEnabledPageSlug } from './page-visibility';
 import { cache } from 'react';
@@ -54,15 +55,19 @@ export const getSettings = cache(async (): Promise<Settings> => {
 });
 export const getPages = cache(async (): Promise<Page[]> => {
   const remote = await query<Page[]>(
-    '*[_type=="page" && !(_id in path("drafts.**"))]{"slug":slug.current,title,description,eyebrow,"updatedAt":_updatedAt,"seo":seo{title,description,"image":image.asset->url,noIndex},"image":image.asset->url,sections[]{title,text,items},faq[]{question,answer},kind}',
+    '*[_type=="page" && !(_id in path("drafts.**"))]{"slug":slug.current,title,description,eyebrow,"updatedAt":_updatedAt,"seo":seo{title,description,"image":image.asset->url,noIndex},"image":image.asset->url,sections[]{title,text,items},faq[]{question,answer},kind,documentStatus,sourceUrl,sourceNote,"attachment":attachment.asset->{url,originalFilename}}',
   );
   if (!remote)
-    return pages.filter((p) => isEnabledPageSlug(p.slug)).map(withSeoDefaults);
+    return withInformationPages(pages)
+      .filter((p) => isEnabledPageSlug(p.slug))
+      .map(withSeoDefaults);
   if (!remote.length) {
     const initialized = await query<number>('count(*[_id=="siteSettings"])');
     return initialized
       ? []
-      : pages.filter((p) => isEnabledPageSlug(p.slug)).map(withSeoDefaults);
+      : withInformationPages(pages)
+          .filter((p) => isEnabledPageSlug(p.slug))
+          .map(withSeoDefaults);
   }
   const merged = new Map<string, Page>();
   for (const p of remote) {
@@ -76,7 +81,7 @@ export const getPages = cache(async (): Promise<Page[]> => {
       faq: p.faq || old?.faq || [],
     });
   }
-  return [...merged.values()]
+  return withInformationPages([...merged.values()])
     .filter((p) => isEnabledPageSlug(p.slug))
     .map(withSeoDefaults);
 });

@@ -8,6 +8,10 @@ export type Section = { title: string; text: string; items?: string[] };
 export type Page = {
   seo?: SeoFields;
   updatedAt?: string;
+  documentStatus?: 'review' | 'approved';
+  sourceUrl?: string;
+  sourceNote?: string;
+  attachment?: { url: string; originalFilename?: string };
   slug: string;
   title: string;
   description: string;
@@ -15,7 +19,7 @@ export type Page = {
   image: string;
   sections: Section[];
   faq: { question: string; answer: string }[];
-  kind?: 'individual' | 'group' | 'contact' | 'blog';
+  kind?: 'individual' | 'group' | 'contact' | 'blog' | 'faq' | 'legal';
 };
 export const philosophy =
   'Nie wierzymy w jeden sposób nauki dla wszystkich. Każde zajęcia przygotowujemy z myślą o konkretnej osobie: jej tempie, zainteresowaniach i celach. Dzięki temu nauka staje się naturalna, a zdobywanie kolejnych umiejętności daje satysfakcję zamiast stresu. Błędy są częścią procesu. Traktujemy je z życzliwością, bo wiemy, że właśnie dzięki nim rozwijamy się najbardziej.';

@@ -94,6 +94,35 @@ for (const icon of ['favicon.ico', 'apple-touch-icon.png']) {
 }
 if (fs.existsSync(path.join(root, 'hiszpanski-mieczaki/index.html')))
   errors.push('Retired landing page still exported');
+for (const slug of ['faq', 'regulamin', 'polityka-prywatnosci']) {
+  if (!fs.existsSync(path.join(root, slug, 'index.html')))
+    errors.push(`Missing information page: ${slug}`);
+}
+const policy = fs.readFileSync(
+  path.join(root, 'polityka-prywatnosci/index.html'),
+  'utf8',
+);
+if (!policy.includes('noindex') || !policy.includes('Projekt do weryfikacji'))
+  errors.push(
+    'Unapproved privacy draft must remain visibly marked and noindex',
+  );
+const sitemap = fs.readFileSync(path.join(root, 'sitemap.xml'), 'utf8');
+if (sitemap.includes('/polityka-prywatnosci/'))
+  errors.push('Unapproved privacy draft leaked into sitemap');
+const faqHtml = fs.readFileSync(path.join(root, 'faq/index.html'), 'utf8');
+let faqCount = 0;
+for (const [, body] of faqHtml.matchAll(
+  /<script[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g,
+)) {
+  const doc = JSON.parse(body);
+  for (const node of doc['@graph'] || [doc])
+    if (node['@type'] === 'FAQPage') faqCount++;
+}
+if (faqCount !== 1) errors.push('FAQ must have exactly one FAQPage schema');
+if (
+  !fs.existsSync(path.join(root, 'documents/regulamin-kursow-jezykowych.pdf'))
+)
+  errors.push('Missing original regulation PDF');
 if (errors.length) {
   console.error([...new Set(errors)].join('\n'));
   process.exit(1);

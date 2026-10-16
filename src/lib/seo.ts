@@ -115,7 +115,12 @@ export function webPageGraph(
   description: string,
   path = '',
   image = 'logo.webp',
-  type: 'WebPage' | 'AboutPage' | 'ContactPage' | 'CollectionPage' = 'WebPage',
+  type:
+    | 'WebPage'
+    | 'AboutPage'
+    | 'ContactPage'
+    | 'CollectionPage'
+    | 'FAQPage' = 'WebPage',
 ) {
   return {
     '@context': 'https://schema.org',
@@ -134,13 +139,15 @@ export function webPageGraph(
 export function pageGraph(page: Page, settings: Settings, posts: Post[] = []) {
   const slug = page.slug;
   const type =
-    slug === 'o-nas'
-      ? 'AboutPage'
-      : page.kind === 'contact'
-        ? 'ContactPage'
-        : page.kind === 'blog'
-          ? 'CollectionPage'
-          : 'WebPage';
+    page.kind === 'faq' && page.faq.length
+      ? 'FAQPage'
+      : slug === 'o-nas'
+        ? 'AboutPage'
+        : page.kind === 'contact'
+          ? 'ContactPage'
+          : page.kind === 'blog'
+            ? 'CollectionPage'
+            : 'WebPage';
   const webpage = webPageGraph(
     page.seo?.title || page.title,
     page.seo?.description || page.description,
@@ -169,6 +176,17 @@ export function pageGraph(page: Page, settings: Settings, posts: Post[] = []) {
       ],
     },
   ];
+  if (page.attachment?.url)
+    Object.assign(webpage, {
+      associatedMedia: {
+        '@type': 'MediaObject',
+        encodingFormat: 'application/pdf',
+        name: page.attachment.originalFilename || page.title,
+        contentUrl: page.attachment.url.startsWith('https://')
+          ? page.attachment.url
+          : `${siteUrl}/${page.attachment.url.replace(/^\//, '')}`,
+      },
+    });
   Object.assign(webpage, {
     breadcrumb: { '@id': absolute(slug) + '#breadcrumb' },
   });
@@ -202,6 +220,14 @@ export function pageGraph(page: Page, settings: Settings, posts: Post[] = []) {
         serviceUrl: absolute(slug),
       },
       mainEntityOfPage: { '@id': webpage['@id'] },
+    });
+  } else if (type === 'FAQPage') {
+    Object.assign(webpage, {
+      mainEntity: page.faq.map((item) => ({
+        '@type': 'Question',
+        name: item.question,
+        acceptedAnswer: { '@type': 'Answer', text: item.answer },
+      })),
     });
   } else if (type === 'AboutPage' || type === 'ContactPage') {
     Object.assign(webpage, { mainEntity: { '@id': organizationId } });
