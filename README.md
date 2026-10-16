@@ -76,3 +76,21 @@ Projekt korzysta z konfiguracji ESLint Next.js **Core Web Vitals + TypeScript** 
 - `npm run format:check` — sprawdza formatowanie bez zapisywania zmian.
 
 Wygenerowane pliki, zależności, obrazy, lockfile i dane importu są pomijane przez formatter. GitHub Actions uruchamia lint i kontrolę formatowania przed sprawdzaniem typów i buildem. W Next.js 16 używamy bezpośrednio CLI ESLint.
+
+## Nawigacja, formularze i social media
+
+Menu jest pełnoekranowym natywnym dialogiem na wszystkich rozmiarach ekranu. Linki, zamknięcie i Escape uruchamiają animację zamykania, przywracają przewijanie i fokus. Animacje respektują ograniczenie ruchu w systemie. Formularze pokazują komunikaty pod konkretnymi polami, po opuszczeniu pola i po wysłaniu; pierwsze niepoprawne pole dostaje fokus. Nadal nie wysyłają zgłoszeń.
+
+Ikony interfejsu: `lucide-react`; znaki platform: `@icons-pack/react-simple-icons`. Instagram, TikTok i Facebook pochodzą z linków na oryginalnej stronie. Edycja: **Strona główna i ustawienia → Profile społecznościowe**, wraz z tekstem sekcji social mediów. Linki do obcych domen nie są renderowane jako profile tych platform.
+
+Karuzela opinii jest sterowana przyciskami, kropkami, klawiaturą i gestem przesunięcia. Nie ma automatycznego przewijania. W trybie demo do prawdziwych opinii z CMS dołączają dwa jednoznacznie oznaczone przykłady; przy `NEXT_PUBLIC_ENABLE_LIVE_DATA=true` przykłady znikają. Nie są przedstawiane jako opinie rzeczywistych osób ani uwzględniane w danych ocen. Autentyczne opinie nadal edytujesz w **Kadra i opinie**.
+
+## SEO i dane strukturalne
+
+Metadane są generowane z opublikowanych danych Sanity podczas builda: tytuły i opisy, canonical, Open Graph, Twitter Cards. Podstrony i artykuły mają obiekt **SEO i udostępnianie** z opcjonalnym tytułem, opisem, własnym obrazem OG i noindex. Domyślna grafika OG ma 1200 × 630 px; można zastąpić ją w ustawieniach Studio. Puste pola SEO korzystają z tytułu/opisu treści i ustawień całej strony.
+
+JSON-LD obejmuje `EducationalOrganization`, `WebSite`, `WebPage`, breadcrumbs, widoczne FAQ, osoby w widocznej sekcji kadry, usługi online i artykuły z datami z CMS. Przykładowe kontakty nie są dodawane do danych organizacji w trybie demo. Nie generujemy fikcyjnych ocen, adresów ani współrzędnych. Sitemap zawiera daty aktualizacji z CMS i pomija treści oznaczone noindex; robots wyklucza Studio. Kontrola eksportu sprawdza metadane, poprawność JSON-LD, nagłówki i linki.
+
+To podstawa techniczna SEO i czytelności dla systemów AI, bez gwarancji indeksacji lub pozycji. Po migracji na domenę docelową trzeba ustawić `NEXT_PUBLIC_SITE_URL` i ścieżki, wdrożyć stronę oraz zweryfikować domenę i sitemapę w Search Console. Na GitHub Pages zmiana treści aktualizuje metadane przy następnym buildzie. Nie włączono produkcyjnych formularzy ani analityki.
+
+`npm run test` uruchamia testy interakcji (menu, walidacja, karuzela) i generowania metadanych/JSON-LD. Są też częścią GitHub Actions. W tym środowisku testy DOM nie zastępują pełnej wizualnej kontroli w przeglądarce.

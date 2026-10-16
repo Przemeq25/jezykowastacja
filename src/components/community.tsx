@@ -1,6 +1,9 @@
 import Image from 'next/image';
+import TestimonialCarousel from './testimonial-carousel';
+import { isDemo } from '@/lib/site';
 import type { Community } from '@/lib/cms';
-import { Eyebrow } from './ui';
+import { Eyebrow, JsonLd } from './ui';
+import { organizationId } from '@/lib/seo';
 
 export function TeamSection({ content }: { content: Community }) {
   if (!content.teamVisible || !content.team.length) return null;
@@ -48,12 +51,49 @@ export function TeamSection({ content }: { content: Community }) {
           </article>
         ))}
       </div>
+      <JsonLd
+        data={{
+          '@context': 'https://schema.org',
+          '@graph': content.team.map((person) => ({
+            '@type': 'Person',
+            '@id': organizationId + '-person-' + person._key,
+            name: person.name,
+            jobTitle: person.role,
+            description: person.bio,
+            ...(person.photoUrl ? { image: person.photoUrl } : {}),
+            worksFor: { '@id': organizationId },
+          })),
+        }}
+      />
     </section>
   );
 }
 
 export function TestimonialsSection({ content }: { content: Community }) {
   if (!content.testimonialsVisible || !content.testimonials.length) return null;
+  const items = [
+    ...content.testimonials,
+    ...(isDemo
+      ? [
+          {
+            _key: 'demo-individual',
+            author: 'Przykład zajęć 1:1',
+            course: 'Zajęcia indywidualne · przykład',
+            quote:
+              'Najbardziej doceniam czas na spokojną rozmowę i możliwość wracania do trudniejszych tematów we własnym tempie.',
+            isDemo: true,
+          },
+          {
+            _key: 'demo-online',
+            author: 'Przykład nauki online',
+            course: 'Nauka online · przykład',
+            quote:
+              'Lekcje online łatwo dopasować do planu dnia. Regularne spotkania pomagają mi znaleźć przestrzeń na naukę.',
+            isDemo: true,
+          },
+        ]
+      : []),
+  ];
   return (
     <section
       data-reveal
@@ -68,40 +108,7 @@ export function TestimonialsSection({ content }: { content: Community }) {
         </div>
         <p>{content.testimonialsIntro}</p>
       </div>
-      <div
-        className={`testimonial-grid ${content.testimonials.length === 1 ? 'testimonial-grid--single' : ''}`}
-      >
-        {content.testimonials.map((item) => (
-          <figure key={item._key} className="testimonial-card">
-            <span className="testimonial-mark" aria-hidden="true">
-              “
-            </span>
-            <blockquote>
-              <p>{item.quote}</p>
-            </blockquote>
-            <figcaption>
-              <span className="testimonial-avatar" aria-hidden="true">
-                {item.author[0]}
-              </span>
-              <span>
-                <strong>{item.author}</strong>
-                <span className="testimonial-course">{item.course}</span>
-              </span>
-              {item.sourceUrl && /^https:\/\//.test(item.sourceUrl) && (
-                <a
-                  href={item.sourceUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="testimonial-source"
-                  aria-label={`Źródło opinii: ${item.author} (nowa karta)`}
-                >
-                  Źródło <span aria-hidden="true">↗</span>
-                </a>
-              )}
-            </figcaption>
-          </figure>
-        ))}
-      </div>
+      <TestimonialCarousel items={items} />
     </section>
   );
 }

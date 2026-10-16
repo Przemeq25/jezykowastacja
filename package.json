@@ -11,23 +11,31 @@
     "lint": "eslint . --max-warnings=0",
     "lint:fix": "eslint . --fix --max-warnings=0",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "test": "vitest run"
   },
   "dependencies": {
+    "@icons-pack/react-simple-icons": "^13.15.1",
+    "lucide-react": "^1.58.0",
     "next": "16.4.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.0",
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.8",
     "@types/node": "^24.0.0",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
     "eslint": "^10.12.0",
     "eslint-config-next": "16.4.0",
     "eslint-config-prettier": "^10.1.8",
+    "jsdom": "^30.1.3",
     "prettier": "^3.9.10",
     "tailwindcss": "^4.1.0",
-    "typescript": "^5.9.0"
+    "typescript": "^5.9.0",
+    "vitest": "^5.0.5"
   }
 }

@@ -1,5 +1,13 @@
+export type SeoFields = {
+  title?: string;
+  description?: string;
+  image?: string;
+  noIndex?: boolean;
+};
 export type Section = { title: string; text: string; items?: string[] };
 export type Page = {
+  seo?: SeoFields;
+  updatedAt?: string;
   slug: string;
   title: string;
   description: string;
@@ -214,6 +222,9 @@ export const pages: Page[] = [
   },
 ];
 export type Post = {
+  seo?: SeoFields;
+  publishedAt?: string;
+  updatedAt?: string;
   slug: string;
   title: string;
   excerpt: string;

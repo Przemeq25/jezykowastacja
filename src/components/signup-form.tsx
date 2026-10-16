@@ -1,90 +1,148 @@
 'use client';
 import { useState, type FormEvent } from 'react';
+import { ArrowUpRight, CheckCircle2, RotateCcw } from 'lucide-react';
+import { FieldError, useFormValidation } from './form-fields';
 export default function SignupForm({
   kind = 'individual',
 }: {
   kind?: 'individual' | 'group';
 }) {
   const [sent, setSent] = useState(false);
-  function submit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setSent(true);
+  const courses =
+    kind === 'group'
+      ? ['Początkujący · wtorek 18:00', 'Konwersacje · czwartek 19:00']
+      : ['Lekcja próbna', 'Lekcje indywidualne'];
+  const form = useFormValidation({
+    name: { label: 'Imię', required: true, max: 100, min: 2 },
+    email: { label: 'E-mail', required: true, max: 254, email: true },
+    language: {
+      label: 'Język',
+      required: true,
+      max: 30,
+      options: ['Hiszpański', 'Angielski'],
+    },
+    course: {
+      label: 'Rodzaj spotkania',
+      required: true,
+      max: 100,
+      options: courses,
+    },
+  });
+  function submit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (form.check(event.currentTarget)) setSent(true);
   }
   return (
-    <section
-      id="zapisy"
-      className="my-14 scroll-mt-24 rounded-[2rem] border border-ink/10 bg-white p-6 md:p-10"
-    >
-      <p className="text-xs font-bold uppercase tracking-widest text-rust">
-        Zapisy · wersja testowa
-      </p>
-      <h2 className="mt-4 mb-5 text-3xl">
+    <section id="zapisy" className="form-panel signup-panel">
+      <p className="eyebrow">Zapisy · wersja testowa</p>
+      <h2>
         {kind === 'group' ? 'Znajdź swoją grupę.' : 'Umów swoje zajęcia.'}
       </h2>
-      <p className="mb-7 max-w-2xl text-muted">
-        Ten formularz pokazuje przykładowy proces zapisu. Dane nie są wysyłane
-        ani zapisywane. Docelowo w tym miejscu pojawi się zewnętrzny formularz
-        szkoły.
+      <p className="form-intro">
+        Sprawdź przykładowy proces zapisu. Dane nie są wysyłane ani zapisywane.
+        Docelowo w tym miejscu pojawi się formularz szkoły.
       </p>
       {sent ? (
-        <div role="status" className="rounded-2xl bg-mist p-7">
-          <h3 className="mb-3 text-xl">Zgłoszenie testowe gotowe!</h3>
+        <div role="status" className="signup-success">
+          <CheckCircle2 size={32} aria-hidden="true" />
+          <h3>Zgłoszenie testowe gotowe!</h3>
           <p>To demo — zgłoszenie nie trafiło do szkoły.</p>
           <button
-            className="mt-5 font-bold underline underline-offset-4"
+            type="button"
+            className="action action--secondary"
             onClick={() => setSent(false)}
           >
             Przetestuj ponownie
+            <RotateCcw size={18} aria-hidden="true" />
           </button>
         </div>
       ) : (
-        <form onSubmit={submit} className="grid gap-5 md:grid-cols-2">
-          <label className="grid gap-2 text-sm font-semibold">
-            Imię
+        <form
+          noValidate
+          onSubmit={submit}
+          onBlur={form.blur}
+          onInput={form.input}
+          className="form-grid form-grid--two"
+        >
+          <div className="form-field">
+            <label htmlFor={form.props('name').id}>Imię</label>
             <input
+              {...form.props('name')}
               name="name"
               required
+              autoComplete="given-name"
               maxLength={100}
               className="field"
-              placeholder="Przykładowe imię"
+              placeholder="Twoje imię"
             />
-          </label>
-          <label className="grid gap-2 text-sm font-semibold">
-            E-mail
+            <FieldError
+              id={form.props('name')['aria-describedby']}
+              message={form.errors.name}
+            />
+          </div>
+          <div className="form-field">
+            <label htmlFor={form.props('email').id}>E-mail</label>
             <input
+              {...form.props('email')}
               name="email"
               type="email"
               required
+              autoComplete="email"
               maxLength={254}
               className="field"
-              placeholder="test@example.com"
+              placeholder="imie@example.com"
             />
-          </label>
-          <label className="grid gap-2 text-sm font-semibold">
-            Język
-            <select name="language" className="field">
+            <FieldError
+              id={form.props('email')['aria-describedby']}
+              message={form.errors.email}
+            />
+          </div>
+          <div className="form-field">
+            <label htmlFor={form.props('language').id}>Język</label>
+            <select
+              {...form.props('language')}
+              name="language"
+              required
+              className="field"
+              defaultValue=""
+            >
+              <option value="" disabled>
+                Wybierz język
+              </option>
               <option>Hiszpański</option>
               <option>Angielski</option>
             </select>
-          </label>
-          <label className="grid gap-2 text-sm font-semibold">
-            {kind === 'group' ? 'Przykładowa grupa' : 'Rodzaj spotkania'}
-            <select name="course" className="field">
-              {kind === 'group' ? (
-                <>
-                  <option>Początkujący · wtorek 18:00</option>
-                  <option>Konwersacje · czwartek 19:00</option>
-                </>
-              ) : (
-                <>
-                  <option>Lekcja próbna</option>
-                  <option>Lekcje indywidualne</option>
-                </>
-              )}
+            <FieldError
+              id={form.props('language')['aria-describedby']}
+              message={form.errors.language}
+            />
+          </div>
+          <div className="form-field">
+            <label htmlFor={form.props('course').id}>
+              {kind === 'group' ? 'Przykładowa grupa' : 'Rodzaj spotkania'}
+            </label>
+            <select
+              {...form.props('course')}
+              name="course"
+              required
+              className="field"
+              defaultValue=""
+            >
+              <option value="" disabled>
+                Wybierz spotkanie
+              </option>
+              {courses.map((course) => (
+                <option key={course}>{course}</option>
+              ))}
             </select>
-          </label>
-          <button className="action md:col-span-2">
-            Wyślij zgłoszenie testowe ↗
+            <FieldError
+              id={form.props('course')['aria-describedby']}
+              message={form.errors.course}
+            />
+          </div>
+          <button className="action form-wide" type="submit">
+            Wyślij zgłoszenie testowe
+            <ArrowUpRight size={19} aria-hidden="true" />
           </button>
         </form>
       )}

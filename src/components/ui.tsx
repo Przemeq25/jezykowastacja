@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { ArrowUpRight, Check, Plus } from 'lucide-react';
 import { getSettings } from '@/lib/cms';
 import Image from 'next/image';
 import { asset } from '@/lib/site';
@@ -40,7 +41,7 @@ export function Button({
       className={`action ${secondary ? 'action--secondary' : ''}`}
     >
       {children}
-      <span aria-hidden="true">↗</span>
+      <ArrowUpRight size={19} aria-hidden="true" />
     </Link>
   );
 }
@@ -78,9 +79,11 @@ export function Sections({ sections }: { sections: Section[] }) {
             <ul className="mt-6 space-y-3">
               {s.items.map((item) => (
                 <li key={item} className="flex gap-3">
-                  <span className="text-rust" aria-hidden="true">
-                    ✓
-                  </span>
+                  <Check
+                    size={20}
+                    className="shrink-0 mt-1"
+                    aria-hidden="true"
+                  />
                   {item}
                 </li>
               ))}
@@ -98,26 +101,41 @@ export function Faq({
 }) {
   if (!items.length) return null;
   return (
-    <section data-reveal className="mx-auto max-w-3xl py-20">
-      <Eyebrow>Masz pytania?</Eyebrow>
-      <h2 className="mb-9 text-3xl md:text-4xl">
-        Wszystko zaczyna się od rozmowy.
-      </h2>
-      {items.map((f) => (
-        <details key={f.question} className="group border-b border-ink/15 py-5">
-          <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-semibold">
-            {f.question}
-            <span
-              className="text-xl text-rust group-open:rotate-45"
-              aria-hidden="true"
-            >
-              +
-            </span>
-          </summary>
-          <p className="pt-4 text-muted leading-7">{f.answer}</p>
-        </details>
-      ))}
-    </section>
+    <>
+      <section data-reveal className="mx-auto max-w-3xl py-20">
+        <Eyebrow>Masz pytania?</Eyebrow>
+        <h2 className="mb-9 text-3xl md:text-4xl">
+          Wszystko zaczyna się od rozmowy.
+        </h2>
+        {items.map((f) => (
+          <details
+            key={f.question}
+            className="group border-b border-ink/15 py-5"
+          >
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-semibold">
+              {f.question}
+              <Plus
+                size={22}
+                className="shrink-0 transition-transform group-open:rotate-45"
+                aria-hidden="true"
+              />
+            </summary>
+            <p className="pt-4 text-muted leading-7">{f.answer}</p>
+          </details>
+        ))}
+      </section>
+      <JsonLd
+        data={{
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          mainEntity: items.map((item) => ({
+            '@type': 'Question',
+            name: item.question,
+            acceptedAnswer: { '@type': 'Answer', text: item.answer },
+          })),
+        }}
+      />
+    </>
   );
 }
 export function CTA() {

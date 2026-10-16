@@ -2,6 +2,7 @@ import { defineConfig, defineType, defineField } from 'sanity';
 import { structureTool } from 'sanity/structure';
 import { SetupTool } from './setup-tool';
 import { communitySchema } from './community-schema';
+import { seoSchema, siteSeoFields } from './seo-schema';
 const projectId = process.env.SANITY_STUDIO_PROJECT_ID || 'f1yzh257';
 if (!projectId) throw new Error('Set SANITY_STUDIO_PROJECT_ID in studio/.env');
 const section = defineType({
@@ -50,6 +51,7 @@ const faq = defineType({
   ],
 });
 const common = [
+  defineField({ name: 'seo', title: 'SEO i udostępnianie', type: 'seo' }),
   defineField({
     name: 'title',
     title: 'Tytuł',
@@ -130,6 +132,7 @@ export default defineConfig({
   schema: {
     types: [
       ...communitySchema,
+      seoSchema,
       section,
       faq,
       defineType({
@@ -186,6 +189,7 @@ export default defineConfig({
         title: 'Strona główna i kontakt',
         type: 'document',
         fields: [
+          ...siteSeoFields,
           defineField({
             name: 'title',
             title: 'Główny nagłówek',

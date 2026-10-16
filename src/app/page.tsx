@@ -1,10 +1,27 @@
 import type { Metadata } from 'next';
+import { ArrowUpRight, ArrowRight, Check } from 'lucide-react';
+import { SocialSection } from '@/components/socials';
+import { pageMetadata, webPageGraph } from '@/lib/seo';
 import Link from 'next/link';
 import { getSettings, getCommunity } from '@/lib/cms';
 import { TeamSection, TestimonialsSection } from '@/components/community';
-import { Button, Photo, Eyebrow, Formats, CTA, Faq } from '@/components/ui';
-import { absolute } from '@/lib/site';
-export const metadata: Metadata = { alternates: { canonical: absolute() } };
+import {
+  Button,
+  Photo,
+  Eyebrow,
+  Formats,
+  CTA,
+  Faq,
+  JsonLd,
+} from '@/components/ui';
+export async function generateMetadata(): Promise<Metadata> {
+  const s = await getSettings();
+  return pageMetadata({
+    title: s.seoTitle,
+    description: s.seoDescription,
+    image: s.seoImage,
+  });
+}
 export default async function Home() {
   const [s, community] = await Promise.all([getSettings(), getCommunity()]);
   return (
@@ -32,9 +49,17 @@ export default async function Home() {
               </Button>
             </div>
             <div className="hero-note">
-              <span>Bez presji</span>
-              <span>W Twoim tempie</span>
-              <span>Od pierwszej rozmowy</span>
+              <span>
+                <Check size={15} aria-hidden="true" />
+                Bez presji
+              </span>
+              <span>
+                <Check size={15} aria-hidden="true" />W Twoim tempie
+              </span>
+              <span>
+                <Check size={15} aria-hidden="true" />
+                Od pierwszej rozmowy
+              </span>
             </div>
           </div>
           <div className="hero-photo">
@@ -44,7 +69,8 @@ export default async function Home() {
               priority
             />
             <div className="photo-note">
-              <span aria-hidden="true">✓</span>Po Twojemu. Od początku.
+              <Check size={20} aria-hidden="true" />
+              Po Twojemu. Od początku.
             </div>
           </div>
         </div>
@@ -93,13 +119,13 @@ export default async function Home() {
               >
                 <div className="language-top">
                   <span>JĘZYK ONLINE</span>
-                  <span aria-hidden="true">↗</span>
+                  <ArrowUpRight size={21} aria-hidden="true" />
                 </div>
                 <span className="greeting">{greeting}</span>
                 <h3>{title} online</h3>
                 <p>{text}</p>
                 <span className="text-link">
-                  Poznaj zajęcia <span aria-hidden="true">→</span>
+                  Poznaj zajęcia <ArrowRight size={18} aria-hidden="true" />
                 </span>
               </Link>
             ))}
@@ -169,9 +195,17 @@ export default async function Home() {
         </section>
         <TeamSection content={community} />
         <TestimonialsSection content={community} />
+        <SocialSection
+          links={s.socialLinks}
+          title={s.socialTitle}
+          intro={s.socialIntro}
+        />
         <Faq items={s.homeFaq} />
         <CTA />
       </div>
+      <JsonLd
+        data={webPageGraph(s.seoTitle, s.seoDescription, '', s.seoImage)}
+      />
     </>
   );
 }

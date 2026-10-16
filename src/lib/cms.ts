@@ -37,7 +37,7 @@ async function query<T>(groq: string): Promise<T | undefined> {
 }
 export const getSettings = cache(async (): Promise<Settings> => {
   const remote = await query<Partial<Settings>>(
-    '*[_type=="siteSettings" && !(_id in path("drafts.**"))][0]{title,intro,email,phone,philosophy,formats[]{slug,title,text,price},audiences[]{title,text,image},homeFaq[]{question,answer},"heroImage":heroImage.asset->url,"logo":logo.asset->url}',
+    '*[_type=="siteSettings" && !(_id in path("drafts.**"))][0]{title,intro,email,phone,seoTitle,seoDescription,"seoImage":seoImage.asset->url,socialLinks[]{platform,label,url},socialTitle,socialIntro,philosophy,formats[]{slug,title,text,price},audiences[]{title,text,image},homeFaq[]{question,answer},"heroImage":heroImage.asset->url,"logo":logo.asset->url}',
   );
   return Object.fromEntries(
     Object.entries({ ...defaults, ...remote }).map(([key, value]) => [
@@ -48,7 +48,7 @@ export const getSettings = cache(async (): Promise<Settings> => {
 });
 export const getPages = cache(async (): Promise<Page[]> => {
   const remote = await query<Page[]>(
-    '*[_type=="page" && !(_id in path("drafts.**"))]{"slug":slug.current,title,description,eyebrow,"image":image.asset->url,sections[]{title,text,items},faq[]{question,answer},kind}',
+    '*[_type=="page" && !(_id in path("drafts.**"))]{"slug":slug.current,title,description,eyebrow,"updatedAt":_updatedAt,"seo":seo{title,description,"image":image.asset->url,noIndex},"image":image.asset->url,sections[]{title,text,items},faq[]{question,answer},kind}',
   );
   if (!remote) return pages;
   if (!remote.length) {
@@ -71,7 +71,7 @@ export const getPages = cache(async (): Promise<Page[]> => {
 });
 export const getPosts = cache(async (): Promise<Post[]> => {
   const remote = await query<Post[]>(
-    '*[_type=="post" && !(_id in path("drafts.**"))] | order(_createdAt desc){"slug":slug.current,title,excerpt,"image":image.asset->url,sections[]{title,text,items}}',
+    '*[_type=="post" && !(_id in path("drafts.**"))] | order(_createdAt desc){"slug":slug.current,title,excerpt,"publishedAt":coalesce(publishedAt,_createdAt),"updatedAt":_updatedAt,"seo":seo{title,description,"image":image.asset->url,noIndex},"image":image.asset->url,sections[]{title,text,items}}',
   );
   if (!remote) return posts;
   if (!remote.length) {

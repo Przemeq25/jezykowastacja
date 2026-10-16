@@ -1,9 +1,9 @@
 import type { MetadataRoute } from 'next';
-import { absolute } from '@/lib/site';
+import { absolute, basePath } from '@/lib/site';
 export const dynamic = 'force-static';
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: { userAgent: '*', allow: '/' },
+    rules: { userAgent: '*', allow: '/', disallow: `${basePath}/studio/` },
     sitemap: absolute('sitemap.xml').replace(/\/$/, ''),
   };
 }

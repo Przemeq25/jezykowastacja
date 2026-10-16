@@ -5,7 +5,17 @@ export const dynamic = 'force-static';
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   return [
     { url: absolute() },
-    ...(await getPages()).map((p) => ({ url: absolute(p.slug) })),
-    ...(await getPosts()).map((p) => ({ url: absolute('blog/' + p.slug) })),
+    ...(await getPages())
+      .filter((p) => !p.seo?.noIndex)
+      .map((p) => ({
+        url: absolute(p.slug),
+        ...(p.updatedAt ? { lastModified: p.updatedAt } : {}),
+      })),
+    ...(await getPosts())
+      .filter((p) => !p.seo?.noIndex)
+      .map((p) => ({
+        url: absolute('blog/' + p.slug),
+        ...(p.updatedAt ? { lastModified: p.updatedAt } : {}),
+      })),
   ];
 }

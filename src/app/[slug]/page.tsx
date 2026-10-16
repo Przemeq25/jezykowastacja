@@ -1,4 +1,6 @@
 import type { Metadata } from 'next';
+import { ArrowRight } from 'lucide-react';
+import { pageMetadata, webPageGraph, organizationId } from '@/lib/seo';
 import { TeamSection, TestimonialsSection } from '@/components/community';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -26,17 +28,15 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const p = (await getPages()).find((p) => p.slug === slug);
+  const settings = await getSettings();
   return p
-    ? {
-        title: p.title,
-        description: p.description,
-        alternates: { canonical: absolute(slug) },
-        openGraph: {
-          title: p.title,
-          description: p.description,
-          url: absolute(slug),
-        },
-      }
+    ? pageMetadata({
+        title: p.seo?.title || p.title,
+        description: p.seo?.description || p.description,
+        path: slug,
+        image: p.seo?.image || settings.seoImage,
+        noIndex: p.seo?.noIndex,
+      })
     : {};
 }
 export default async function Page({
@@ -138,7 +138,12 @@ export default async function Page({
                     className="font-bold underline underline-offset-8"
                     href={`/blog/${post.slug}/`}
                   >
-                    Przeczytaj poradnik →
+                    Przeczytaj poradnik{' '}
+                    <ArrowRight
+                      size={17}
+                      className="inline"
+                      aria-hidden="true"
+                    />
                   </Link>
                 </article>
               ))}
@@ -157,6 +162,37 @@ export default async function Page({
         <Faq items={page.faq} />
         {page.kind !== 'contact' && <CTA />}
       </div>
+      <JsonLd
+        data={webPageGraph(
+          page.title,
+          page.description,
+          slug,
+          page.seo?.image || s.seoImage,
+        )}
+      />
+      {[
+        'hiszpanski-online',
+        'angielski-online',
+        'lekcje-indywidualne',
+        'zajecia-w-parze',
+        'kursy-grupowe',
+      ].includes(slug) && (
+        <JsonLd
+          data={{
+            '@context': 'https://schema.org',
+            '@type': 'Service',
+            name: page.title,
+            description: page.description,
+            url: absolute(slug),
+            provider: { '@id': organizationId },
+            availableChannel: {
+              '@type': 'ServiceChannel',
+              serviceUrl: absolute(slug),
+            },
+            serviceType: 'Nauka języków obcych online',
+          }}
+        />
+      )}
       <JsonLd
         data={{
           '@context': 'https://schema.org',

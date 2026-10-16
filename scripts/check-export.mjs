@@ -25,6 +25,27 @@ for (const file of files) {
     errors.push(`${file}: expected one h1`);
   if (!html.includes('rel="canonical"'))
     errors.push(`${file}: missing canonical`);
+  for (const tag of [
+    'property="og:image"',
+    'property="og:url"',
+    'name="twitter:card"',
+    'name="description"',
+  ]) {
+    if (!html.includes(tag)) errors.push(`${file}: missing SEO tag ${tag}`);
+  }
+  const structured = [
+    ...html.matchAll(
+      /<script[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g,
+    ),
+  ];
+  if (!structured.length) errors.push(`${file}: missing structured data`);
+  for (const [, body] of structured) {
+    try {
+      JSON.parse(body);
+    } catch {
+      errors.push(`${file}: invalid JSON-LD`);
+    }
+  }
   if (/activenow\.io|jezykowastacja@gmail\.com|881.?774.?936/.test(html))
     errors.push(`${file}: production integration or contact leaked into demo`);
   for (const [, href] of html.matchAll(/href="([^"#?]+)"/g)) {
@@ -44,5 +65,5 @@ if (errors.length) {
   process.exit(1);
 }
 console.log(
-  `${files.length} HTML files checked; ${checks} local links valid; demo has no production contact or ActiveNow scripts.`,
+  `${files.length} HTML files checked; ${checks} local links valid; SEO tags and JSON-LD valid; demo has no production contact or ActiveNow scripts.`,
 );
