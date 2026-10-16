@@ -17,6 +17,7 @@ import {
 } from '@/components/ui';
 import SignupForm from '@/components/signup-form';
 import ContactForm from '@/components/contact-form';
+import { contactEmail } from '@/lib/contact';
 export async function generateStaticParams() {
   return (await getPages()).map((p) => ({ slug: p.slug }));
 }
@@ -105,9 +106,9 @@ export default async function Page({
                 </p>
                 <a
                   className="mb-4 block break-all text-xl font-semibold underline underline-offset-8"
-                  href={`mailto:${s.email}`}
+                  href={`mailto:${contactEmail}`}
                 >
-                  {s.email}
+                  {contactEmail}
                 </a>
                 <a
                   className="mb-9 block text-xl font-semibold underline underline-offset-8"
@@ -119,7 +120,7 @@ export default async function Page({
                   Przejdź do zapisów
                 </Button>
               </div>
-              <ContactForm email={s.email} />
+              <ContactForm />
             </>
           )}
           {page.kind === 'blog' && (

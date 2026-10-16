@@ -1695,3 +1695,20 @@ svg {
     transition: none !important;
   }
 }
+
+.signup-frame {
+  display: block;
+  width: 100%;
+  border: 0;
+  margin: 24px 0;
+  background: white;
+  border-radius: 16px;
+}
+.signup-panel {
+  max-width: 1200px;
+  margin-inline: auto;
+}
+.form-panel button:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}

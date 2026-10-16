@@ -31,7 +31,7 @@ vi.mock('next/link', () => ({
 }));
 
 describe('menu pełnoekranowe', () => {
-  it('zamyka się także po wybraniu aktualnej strony, przywraca scroll i fokus', () => {
+  it('zamyka się także po wybraniu aktualnej strony, przywracascroll i fokus', () => {
     vi.useFakeTimers();
     document.body.style.overflow = 'auto';
     render(<SiteMenu socials={[]} />);
@@ -73,7 +73,7 @@ describe('menu pełnoekranowe', () => {
 describe('walidacja formularzy', () => {
   it('pokazuje błędy przy polach i ustawia fokus na pierwszym niepoprawnym polu', async () => {
     const user = userEvent.setup();
-    render(<ContactForm email="kontakt@example.com" />);
+    render(<ContactForm />);
     await user.click(screen.getByRole('button', { name: /Wyślij wiadomość/ }));
     const email = screen.getByLabelText('Twój e-mail');
     const message = screen.getByLabelText('Wiadomość');
@@ -91,41 +91,87 @@ describe('walidacja formularzy', () => {
     await user.tab();
     expect(message).toHaveAccessibleDescription('Wpisz co najmniej 10 znaków.');
   });
-  it('poprawne zgłoszenie kontaktowe pozostaje lokalnym demo', async () => {
-    const fetch = vi.spyOn(globalThis, 'fetch');
+  it('wysyła natywnym POST do wskazanego odbiorcy z CAPTCHA i blokuje ponowną próbę', async () => {
+    sessionStorage.clear();
     const user = userEvent.setup();
-    render(<ContactForm email="kontakt@example.com" />);
+    const view = render(<ContactForm />);
     await user.type(screen.getByLabelText('Twój e-mail'), 'test@example.com');
     await user.type(
       screen.getByLabelText('Wiadomość'),
       'Chcę zapytać o lekcje próbne.',
     );
-    await user.click(screen.getByRole('button', { name: /Wyślij wiadomość/ }));
-    expect(
-      screen.getByText(/Formularz został poprawnie wypełniony/),
-    ).toBeVisible();
-    expect(fetch).not.toHaveBeenCalled();
+    const form = view.container.querySelector('form')!;
+    expect(form).toHaveAttribute(
+      'action',
+      'https://formsubmit.co/przemyslaw.cichon.1997@gmail.com',
+    );
+    expect(form).toHaveAttribute('method', 'POST');
+    expect(new FormData(form).get('_captcha')).toBe('true');
+    expect(new FormData(form).get('_honey')).toBe('');
+    // Dispatch the event directly: verify transport intent without sending mail.
+    const submission = new Event('submit', { bubbles: true, cancelable: true });
+    act(() => {
+      form.dispatchEvent(submission);
+    });
+    expect(submission.defaultPrevented).toBe(false);
+    expect(screen.getByRole('button', { name: /Przechodzę/ })).toBeDisabled();
+    fireEvent(window, new Event('pageshow'));
+    const repeat = new Event('submit', { bubbles: true, cancelable: true });
+    act(() => {
+      form.dispatchEvent(repeat);
+    });
+    expect(repeat.defaultPrevented).toBe(true);
+    expect(screen.getByRole('alert')).toHaveTextContent(/Odczekaj/);
+    sessionStorage.clear();
   });
-  it('wymaga wyboru języka i spotkania, a potem pokazuje testowe potwierdzenie', async () => {
+  it('blokuje wypełniony honeypot bez pokazywania fałszywego sukcesu', async () => {
+    sessionStorage.clear();
     const user = userEvent.setup();
-    render(<SignupForm />);
-    await user.click(screen.getByRole('button', { name: /Wyślij zgłoszenie/ }));
-    expect(screen.getByLabelText('Język')).toHaveAccessibleDescription(
-      'Uzupełnij pole: język.',
+    const view = render(<ContactForm />);
+    await user.type(screen.getByLabelText('Twój e-mail'), 'test@example.com');
+    await user.type(
+      screen.getByLabelText('Wiadomość'),
+      'To jest poprawna wiadomość.',
     );
-    await user.type(screen.getByLabelText('Imię'), 'Anna');
-    await user.type(screen.getByLabelText('E-mail'), 'anna@example.com');
-    await user.selectOptions(screen.getByLabelText('Język'), 'Hiszpański');
-    await user.selectOptions(
-      screen.getByLabelText('Rodzaj spotkania'),
-      'Lekcja próbna',
+    fireEvent.change(view.container.querySelector('[name="_honey"]')!, {
+      target: { value: 'spam' },
+    });
+    const event = new Event('submit', { bubbles: true, cancelable: true });
+    act(() => {
+      view.container.querySelector('form')!.dispatchEvent(event);
+    });
+    expect(event.defaultPrevented).toBe(true);
+    expect(screen.getByRole('alert')).toHaveTextContent(/Nie udało się/);
+  });
+  it('wybiera właściwy formularz i odrzuca komunikaty spoza ramki', () => {
+    const view = render(<SignupForm kind="group" />);
+    const frame = screen.getByTitle(
+      'Zapisy na zajęcia grupowe',
+    ) as HTMLIFrameElement;
+    expect(frame.src).toContain('/forms/group.html');
+    fireEvent(
+      window,
+      new MessageEvent('message', {
+        origin: 'https://evil.example',
+        source: frame.contentWindow,
+        data: { type: 'stacja:signup-size', height: 1200, ready: true },
+      }),
     );
-    await user.click(screen.getByRole('button', { name: /Wyślij zgłoszenie/ }));
-    expect(screen.getByText('Zgłoszenie testowe gotowe!')).toBeVisible();
-    await user.click(
-      screen.getByRole('button', { name: 'Przetestuj ponownie' }),
+    expect(frame.style.height).toBe('900px');
+    fireEvent(
+      window,
+      new MessageEvent('message', {
+        origin: window.location.origin,
+        source: frame.contentWindow,
+        data: { type: 'stacja:signup-size', height: 1200, ready: true },
+      }),
     );
-    expect(screen.getByLabelText('Imię')).toBeVisible();
+    expect(frame.style.height).toBe('1200px');
+    expect(screen.queryByText('Ładowanie formularza zapisów…')).toBeNull();
+    view.rerender(<SignupForm kind="individual" />);
+    expect(
+      screen.getByTitle('Zapisy na zajęcia indywidualne i próbne'),
+    ).toHaveAttribute('src', '/forms/individual.html');
   });
 });
 

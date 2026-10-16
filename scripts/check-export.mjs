@@ -15,6 +15,7 @@ let checks = 0;
 for (const file of files) {
   if (
     file.includes('/studio/') ||
+    file.includes('/forms/') ||
     file.endsWith('/404.html') ||
     file.includes('/_not-found/') ||
     file.includes('/404/')
@@ -46,7 +47,7 @@ for (const file of files) {
       errors.push(`${file}: invalid JSON-LD`);
     }
   }
-  if (/activenow\.io|jezykowastacja@gmail\.com|881.?774.?936/.test(html))
+  if (/jezykowastacja@gmail\.com|881.?774.?936/.test(html))
     errors.push(`${file}: production integration or contact leaked into demo`);
   for (const [, href] of html.matchAll(/href="([^"#?]+)"/g)) {
     if (!href.startsWith('/') || href.startsWith('//')) continue;
@@ -60,10 +61,34 @@ for (const file of files) {
     checks++;
   }
 }
+for (const [kind, id] of [
+  ['individual', '181238'],
+  ['group', '179720'],
+]) {
+  const embed = fs.readFileSync(
+    path.join(root, 'forms', `${kind}.html`),
+    'utf8',
+  );
+  if (
+    !embed.includes(`signup_form_id=${id}`) ||
+    !embed.includes('school_id=19620')
+  )
+    errors.push(`Incorrect ActiveNow integration for ${kind}`);
+  if (!embed.includes('noindex') || !embed.includes('brand.css'))
+    errors.push(`Embed missing branding or noindex: ${kind}`);
+}
+const contact = fs.readFileSync(path.join(root, 'kontakt/index.html'), 'utf8');
+if (
+  !contact.includes(
+    'action="https://formsubmit.co/przemyslaw.cichon.1997@gmail.com"',
+  ) ||
+  !contact.includes('name="_captcha" value="true"')
+)
+  errors.push('Contact transport or CAPTCHA missing from export');
 if (errors.length) {
   console.error([...new Set(errors)].join('\n'));
   process.exit(1);
 }
 console.log(
-  `${files.length} HTML files checked; ${checks} local links valid; SEO tags and JSON-LD valid; demo has no production contact or ActiveNow scripts.`,
+  `${files.length} HTML files checked; ${checks} local links valid; SEO tags and JSON-LD valid; intentional ActiveNow and contact form integrations enabled.`,
 );

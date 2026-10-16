@@ -48,7 +48,7 @@ export default async function Layout({
           Przejdź do treści
         </a>
         <div className="demo-strip">
-          Wersja testowa · formularze nie wysyłają zgłoszeń
+          Wersja testowa strony · zapisy ActiveNow są aktywne
         </div>
         <header className="site-header">
           <div className="content-width header-inner">
@@ -104,7 +104,7 @@ export default async function Layout({
                   <span>
                     Językowa
                     <br />
-                    Stacja
+          Stacja
                   </span>
                 </Link>
                 <p>
