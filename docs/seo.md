@@ -37,3 +37,5 @@ JSON-LD:
 Frazy kluczowe są naturalnie użyte w tytułach i opisach, bez upychania fraz
 w meta keywords. Dane strukturalne opisują treść, nie gwarantują pozycji w Google
 ani obecności w odpowiedziach AI. GitHub Pages potrzebuje builda po zmianie CMS.
+
+Przy braku własnych tytułów i opisów CMS strona korzysta z tych samych propozycji jako wartości domyślnych. Nie zapisuje ich automatycznie do Content Lake: ten zapis nadal wymaga uwierzytelnienia. Podstrona Mięczaków została wycofana z publikacji i uzupełniania SEO na życzenie właściciela; dokument pozostaje w historii CMS.

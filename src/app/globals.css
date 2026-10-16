@@ -490,32 +490,6 @@ details summary::-webkit-details-marker {
   font-size: 15px;
   margin: 0;
 }
-.closing-banner {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 30px;
-  padding: 44px;
-  background: var(--js-ink);
-  color: var(--js-cream);
-  border-radius: 20px;
-  margin: 32px 0 80px;
-}
-.closing-banner .eyebrow {
-  color: var(--js-cream);
-}
-.closing-banner h2 {
-  max-width: 620px;
-  font-size: clamp(30px, 4vw, 42px);
-}
-.closing-banner p {
-  font-size: 15px;
-  margin: 18px 0 0;
-}
-.closing-banner > .action {
-  flex-shrink: 0;
-}
 .site-footer {
   background: var(--js-cream);
   border-top: 1px solid #303a4525;
@@ -645,13 +619,6 @@ details summary::-webkit-details-marker {
   .philosophy-band {
     padding: 48px 0;
   }
-  .closing-banner {
-    padding: 28px;
-    margin-bottom: 48px;
-  }
-  .closing-banner > .action {
-    width: 100%;
-  }
   .route-bar {
     gap: 12px;
     font-size: 12px;
@@ -756,29 +723,10 @@ option {
   color: inherit;
   -webkit-text-fill-color: inherit;
 }
-.demo-strip,
-.closing-banner {
+.demo-strip {
   color: #fbf1df;
   -webkit-text-fill-color: #fbf1df;
   background-color: #303a45;
-}
-.closing-banner :is(h1, h2, h3, h4, p, .eyebrow) {
-  color: #fbf1df;
-  -webkit-text-fill-color: #fbf1df;
-}
-.closing-banner .action,
-.closing-banner .action:visited {
-  color: #303a45;
-  -webkit-text-fill-color: #303a45;
-  background-color: #fac078;
-  border-color: #fac078;
-}
-.closing-banner .action:hover,
-.closing-banner .action:focus-visible {
-  color: #303a45;
-  -webkit-text-fill-color: #303a45;
-  background-color: #fbf1df;
-  border-color: #fbf1df;
 }
 
 /* Restrained motion: transform only; text is never faded out or hidden. */
@@ -1274,11 +1222,16 @@ svg {
   justify-content: space-between;
   align-items: center;
   gap: 32px;
-  padding: 52px 0 40px;
-  border-bottom: 1px solid #303a4528;
+  padding: clamp(28px, 4vw, 48px);
+  margin-top: 40px;
+  background: #fac078;
+  color: #303a45;
+  border: 1px solid #303a4528;
+  border-radius: 24px;
+  box-shadow: 0 12px 32px #303a4510;
 }
 .footer-callout h2 {
-  font-size: clamp(27px, 3vw, 38px);
+  font-size: clamp(30px, 3.5vw, 44px);
 }
 .footer-callout .eyebrow {
   margin-bottom: 14px;
@@ -1607,7 +1560,7 @@ svg {
   .footer-callout {
     align-items: flex-start;
     flex-direction: column;
-    padding-top: 38px;
+    padding: 28px;
   }
   .footer-grid {
     gap: 32px 20px;
@@ -1711,4 +1664,34 @@ svg {
 .form-panel button:disabled {
   opacity: 0.65;
   cursor: wait;
+}
+
+.footer-callout-description {
+  margin: 18px 0 0;
+  max-width: 40ch;
+  font-size: 15px;
+  line-height: 1.7;
+}
+.footer-callout .action,
+.footer-callout .action:visited {
+  flex-shrink: 0;
+  padding: 18px 26px;
+  background: #303a45;
+  border-color: #303a45;
+  color: #fbf1df;
+  -webkit-text-fill-color: #fbf1df;
+  box-shadow: 0 8px 20px #303a4520;
+}
+.footer-callout .action:hover,
+.footer-callout .action:focus-visible {
+  background: #fbf1df;
+  border-color: #303a45;
+  color: #303a45;
+  -webkit-text-fill-color: #303a45;
+}
+@media (max-width: 640px) {
+  .footer-callout .action {
+    width: 100%;
+    justify-content: center;
+  }
 }

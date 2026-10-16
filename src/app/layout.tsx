@@ -3,8 +3,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Mail, Phone, ArrowUpRight, Heart } from 'lucide-react';
 import { getSettings } from '@/lib/cms';
-import { absolute, asset } from '@/lib/site';
-import { pageMetadata, siteGraph, imageUrl } from '@/lib/seo';
+import { absolute, asset, basePath } from '@/lib/site';
+import { pageMetadata, siteGraph } from '@/lib/seo';
 import { JsonLd } from '@/components/ui';
 import SiteMenu from '@/components/site-menu';
 import { SocialLinks } from '@/components/socials';
@@ -14,7 +14,17 @@ export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSettings();
   return {
     metadataBase: new URL(absolute()),
-    icons: { icon: settings.logo || imageUrl('logo.webp') },
+    icons: {
+      icon: [{ url: `${basePath}/favicon.ico`, type: 'image/x-icon' }],
+      shortcut: `${basePath}/favicon.ico`,
+      apple: [
+        {
+          url: `${basePath}/apple-touch-icon.png`,
+          sizes: '180x180',
+          type: 'image/png',
+        },
+      ],
+    },
     ...pageMetadata({
       title: settings.seoTitle,
       description: settings.seoDescription,
@@ -33,7 +43,6 @@ const footerSchool = [
   ['O nas i kadrze', '/o-nas/'],
   ['Opinie uczniów', '/#opinie'],
   ['Poradniki językowe', '/blog/'],
-  ['Hiszpański i Mięczaki', '/hiszpanski-mieczaki/'],
   ['Kontakt', '/kontakt/'],
 ];
 export default async function Layout({
@@ -83,16 +92,22 @@ export default async function Layout({
         <MotionEnhancer />
         <footer className="site-footer">
           <div className="content-width">
-            <div className="footer-callout">
+            <section
+              className="footer-callout"
+              aria-labelledby="footer-cta-title"
+            >
               <div>
                 <p className="eyebrow">Kolejny przystanek? Rozmowa.</p>
-                <h2>Znajdź swój językowy rytm.</h2>
+                <h2 id="footer-cta-title">Znajdź swój językowy rytm.</h2>
+                <p className="footer-callout-description">
+                  Wybierz język. Wspólnie dobierzemy formę zajęć.
+                </p>
               </div>
               <Link href="/lekcja-probna/" className="action">
                 Umów pierwszą lekcję
                 <ArrowUpRight size={19} aria-hidden="true" />
               </Link>
-            </div>
+            </section>
             <div className="footer-grid">
               <div className="footer-brand">
                 <Link href="/" className="wordmark">

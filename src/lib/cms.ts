@@ -1,3 +1,5 @@
+import { withSeoDefaults } from './seo-content';
+import { isEnabledPageSlug } from './page-visibility';
 import { cache } from 'react';
 import communityDefaults from './community.json';
 import {
@@ -50,10 +52,13 @@ export const getPages = cache(async (): Promise<Page[]> => {
   const remote = await query<Page[]>(
     '*[_type=="page" && !(_id in path("drafts.**"))]{"slug":slug.current,title,description,eyebrow,"updatedAt":_updatedAt,"seo":seo{title,description,"image":image.asset->url,noIndex},"image":image.asset->url,sections[]{title,text,items},faq[]{question,answer},kind}',
   );
-  if (!remote) return pages;
+  if (!remote)
+    return pages.filter((p) => isEnabledPageSlug(p.slug)).map(withSeoDefaults);
   if (!remote.length) {
     const initialized = await query<number>('count(*[_id=="siteSettings"])');
-    return initialized ? [] : pages;
+    return initialized
+      ? []
+      : pages.filter((p) => isEnabledPageSlug(p.slug)).map(withSeoDefaults);
   }
   const merged = new Map<string, Page>();
   for (const p of remote) {
@@ -67,16 +72,18 @@ export const getPages = cache(async (): Promise<Page[]> => {
       faq: p.faq || old?.faq || [],
     });
   }
-  return [...merged.values()];
+  return [...merged.values()]
+    .filter((p) => isEnabledPageSlug(p.slug))
+    .map(withSeoDefaults);
 });
 export const getPosts = cache(async (): Promise<Post[]> => {
   const remote = await query<Post[]>(
     '*[_type=="post" && !(_id in path("drafts.**"))] | order(_createdAt desc){"slug":slug.current,title,excerpt,"publishedAt":coalesce(publishedAt,_createdAt),"updatedAt":_updatedAt,"seo":seo{title,description,"image":image.asset->url,noIndex},"image":image.asset->url,sections[]{title,text,items}}',
   );
-  if (!remote) return posts;
+  if (!remote) return posts.map(withSeoDefaults);
   if (!remote.length) {
     const initialized = await query<number>('count(*[_id=="siteSettings"])');
-    return initialized ? [] : posts;
+    return initialized ? [] : posts.map(withSeoDefaults);
   }
   return remote
     .filter((p) => p.slug && /^[a-z0-9-]+$/.test(p.slug))
@@ -84,7 +91,8 @@ export const getPosts = cache(async (): Promise<Post[]> => {
       ...p,
       image: p.image || 'philosophy.webp',
       sections: p.sections || [],
-    }));
+    }))
+    .map(withSeoDefaults);
 });
 
 export type Community = typeof communityDefaults;

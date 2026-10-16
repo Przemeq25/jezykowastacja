@@ -185,31 +185,6 @@ export const pages: Page[] = [
     kind: 'contact',
   },
   {
-    slug: 'hiszpanski-mieczaki',
-    title: 'Hiszpański, Mięczaki i Twój kolejny krok.',
-    description:
-      'Szukasz nauki hiszpańskiego po lekcjach na kanale Mięczaki? Poznaj ofertę hiszpańskiego online w Językowej Stacji.',
-    eyebrow: 'Od inspiracji do rozmowy',
-    image: 'philosophy.webp',
-    sections: [
-      {
-        title: 'Trafiasz tu po hiszpańskim na kanale Mięczaki?',
-        text: 'Materiały na YouTube mogą być świetnym początkiem. Jeśli chcesz uporządkować podstawy i zacząć używać języka w rozmowie, poznaj nasze zajęcia online. Napisz, które tematy już znasz i czego chcesz nauczyć się dalej.',
-      },
-      {
-        title: 'Przećwicz to, co już znasz',
-        text: 'Na lekcjach masz przestrzeń na pytania, własne zdania i rozmowę z lektorem. Wybierz naukę indywidualną, w parze albo w grupie; pomożemy dobrać formę do Twoich potrzeb.',
-      },
-    ],
-    faq: [
-      {
-        question: 'Czy muszę wcześniej obejrzeć lekcje na YouTube?',
-        answer:
-          'Nie. Możesz zacząć od podstaw albo wykorzystać wiedzę zdobytą samodzielnie. Opowiedz nam o niej przy zapisie.',
-      },
-    ],
-  },
-  {
     slug: 'blog',
     title: 'Małe kroki. Coraz więcej słów.',
     description:

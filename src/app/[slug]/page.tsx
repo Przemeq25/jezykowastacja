@@ -5,15 +5,7 @@ import { TeamSection, TestimonialsSection } from '@/components/community';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getPages, getSettings, getPosts, getCommunity } from '@/lib/cms';
-import {
-  Button,
-  Photo,
-  Eyebrow,
-  Sections,
-  Faq,
-  CTA,
-  JsonLd,
-} from '@/components/ui';
+import { Button, Photo, Eyebrow, Sections, Faq, JsonLd } from '@/components/ui';
 import SignupForm from '@/components/signup-form';
 import ContactForm from '@/components/contact-form';
 import { contactEmail } from '@/lib/contact';
@@ -166,7 +158,6 @@ export default async function Page({
           </>
         )}
         <Faq items={page.faq} />
-        {page.kind !== 'contact' && <CTA />}
       </div>
       <JsonLd
         data={pageGraph(page, s, page.kind === 'blog' ? await getPosts() : [])}

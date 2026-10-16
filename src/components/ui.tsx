@@ -138,18 +138,6 @@ export function Faq({
     </>
   );
 }
-export function CTA() {
-  return (
-    <section data-reveal className="closing-banner">
-      <div>
-        <Eyebrow>Twój pierwszy przystanek</Eyebrow>
-        <h2>Zacznijmy od Twojego „cześć”.</h2>
-        <p>Wybierz język. Resztę ustalimy razem.</p>
-      </div>
-      <Button href="/lekcja-probna/">Umów pierwszą lekcję</Button>
-    </section>
-  );
-}
 export function JsonLd({ data }: { data: unknown }) {
   return (
     <script

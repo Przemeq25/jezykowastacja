@@ -22,6 +22,10 @@ for (const file of files) {
   )
     continue;
   const html = fs.readFileSync(file, 'utf8');
+  if (html.includes('closing-banner') || html.includes('hiszpanski-mieczaki'))
+    errors.push(`${file}: retired content still present`);
+  if (!html.includes('/favicon.ico'))
+    errors.push(`${file}: missing logo favicon`);
   if ((html.match(/<h1\b/g) || []).length !== 1)
     errors.push(`${file}: expected one h1`);
   if (!html.includes('rel="canonical"'))
@@ -84,6 +88,12 @@ if (
   !contact.includes('name="_captcha" value="true"')
 )
   errors.push('Contact transport or CAPTCHA missing from export');
+for (const icon of ['favicon.ico', 'apple-touch-icon.png']) {
+  if (!fs.existsSync(path.join(root, icon)))
+    errors.push(`Missing icon: ${icon}`);
+}
+if (fs.existsSync(path.join(root, 'hiszpanski-mieczaki/index.html')))
+  errors.push('Retired landing page still exported');
 if (errors.length) {
   console.error([...new Set(errors)].join('\n'));
   process.exit(1);

@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getPosts, getSettings } from '@/lib/cms';
 import { absolute } from '@/lib/site';
-import { Eyebrow, Sections, CTA, JsonLd } from '@/components/ui';
+import { Eyebrow, Sections, JsonLd } from '@/components/ui';
 export const dynamicParams = false;
 export async function generateStaticParams() {
   return (await getPosts()).map((p) => ({ slug: p.slug }));
@@ -53,7 +53,6 @@ export default async function Post({
         <p className="mb-14 text-xl text-muted">{p.excerpt}</p>
         <Sections sections={p.sections} />
       </article>
-      <CTA />
       <JsonLd
         data={{
           ...webPageGraph(

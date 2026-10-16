@@ -1,3 +1,4 @@
+import { isEnabledPageSlug } from './page-visibility';
 import { defaultSocials, type SocialLink } from './socials';
 /** Shared, reviewed copy for the one-time Sanity SEO completion. */
 export const homeSeo = {
@@ -35,11 +36,6 @@ export const seoCopy: Record<string, { title: string; description: string }> = {
     title: 'Lekcja próbna online — angielski i hiszpański',
     description:
       'Zacznij naukę angielskiego lub hiszpańskiego online od pierwszego spotkania. Poznaj sposób pracy Językowej Stacji i zapytaj o dostępne terminy.',
-  },
-  'hiszpanski-mieczaki': {
-    title: 'Hiszpański i Mięczaki — nauka online | Językowa Stacja',
-    description:
-      'Znasz hiszpański z kanału Mięczaki na YouTube? Poznaj Językową Stację i zrób kolejny krok w nauce hiszpańskiego online z lektorem.',
   },
   'o-nas': {
     title: 'O nas i kadrze — szkoła językowa online | Językowa Stacja',
@@ -123,6 +119,8 @@ export function buildSeoPatches(documents: SeoDocument[]): SeoPatch[] {
   };
   const patches: SeoPatch[] = [];
   for (const doc of documents) {
+    if (doc._type === 'page' && !isEnabledPageSlug(doc.slug?.current || ''))
+      continue;
     const set: Record<string, unknown> = {};
     if (doc._type === 'siteSettings') {
       if (!doc.socialLinks?.length)
@@ -161,4 +159,29 @@ export function buildSeoPatches(documents: SeoDocument[]): SeoPatch[] {
       patches.push({ id: doc._id, revision: doc._rev, set });
   }
   return patches;
+}
+
+/** Keeps public metadata complete until the authenticated CMS completion is run. */
+export function withSeoDefaults<
+  T extends {
+    slug: string;
+    title: string;
+    description?: string;
+    excerpt?: string;
+    seo?: { title?: string; description?: string };
+  },
+>(document: T): T {
+  const copy = seoCopy[document.slug];
+  return {
+    ...document,
+    seo: {
+      ...document.seo,
+      title: document.seo?.title?.trim()
+        ? document.seo.title
+        : copy?.title || document.title,
+      description: document.seo?.description?.trim()
+        ? document.seo.description
+        : copy?.description || document.description || document.excerpt,
+    },
+  };
 }

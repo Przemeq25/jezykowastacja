@@ -5,15 +5,7 @@ import { pageMetadata, webPageGraph } from '@/lib/seo';
 import Link from 'next/link';
 import { getSettings, getCommunity } from '@/lib/cms';
 import { TeamSection, TestimonialsSection } from '@/components/community';
-import {
-  Button,
-  Photo,
-  Eyebrow,
-  Formats,
-  CTA,
-  Faq,
-  JsonLd,
-} from '@/components/ui';
+import { Button, Photo, Eyebrow, Formats, Faq, JsonLd } from '@/components/ui';
 export async function generateMetadata(): Promise<Metadata> {
   const s = await getSettings();
   return pageMetadata({
@@ -201,7 +193,6 @@ export default async function Home() {
           intro={s.socialIntro}
         />
         <Faq items={s.homeFaq} />
-        <CTA />
       </div>
       <JsonLd
         data={webPageGraph(s.seoTitle, s.seoDescription, '', s.seoImage)}
