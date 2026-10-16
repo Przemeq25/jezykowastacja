@@ -104,7 +104,7 @@ export default async function Layout({
                   <span>
                     Językowa
                     <br />
-          Stacja
+                    Stacja
                   </span>
                 </Link>
                 <p>

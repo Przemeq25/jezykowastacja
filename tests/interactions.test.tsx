@@ -31,7 +31,7 @@ vi.mock('next/link', () => ({
 }));
 
 describe('menu pełnoekranowe', () => {
-  it('zamyka się także po wybraniu aktualnej strony, przywracascroll i fokus', () => {
+  it('zamyka się także po wybraniu aktualnej strony, przywraca scroll i fokus', () => {
     vi.useFakeTimers();
     document.body.style.overflow = 'auto';
     render(<SiteMenu socials={[]} />);
