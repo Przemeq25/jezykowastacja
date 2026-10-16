@@ -91,11 +91,11 @@ export default async function Layout({
         <main id="main">{children}</main>
         <MotionEnhancer />
         <footer className="site-footer">
-          <div className="content-width">
-            <section
-              className="footer-callout"
-              aria-labelledby="footer-cta-title"
-            >
+          <section
+            className="footer-callout"
+            aria-labelledby="footer-cta-title"
+          >
+            <div className="content-width footer-callout-inner">
               <div>
                 <p className="eyebrow">Kolejny przystanek? Rozmowa.</p>
                 <h2 id="footer-cta-title">Znajdź swój językowy rytm.</h2>
@@ -107,7 +107,9 @@ export default async function Layout({
                 Umów pierwszą lekcję
                 <ArrowUpRight size={19} aria-hidden="true" />
               </Link>
-            </section>
+            </div>
+          </section>
+          <div className="content-width">
             <div className="footer-grid">
               <div className="footer-brand">
                 <Link href="/" className="wordmark">
