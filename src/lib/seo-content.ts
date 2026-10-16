@@ -128,6 +128,7 @@ export function buildSeoPatches(documents: SeoDocument[]): SeoPatch[] {
       if (!doc.socialLinks?.length)
         set.socialLinks = defaultSocials.map((link, index) => ({
           ...link,
+          _type: 'object',
           _key: `social-${index}`,
         }));
       if (blank(doc.socialTitle))
